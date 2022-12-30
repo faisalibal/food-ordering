@@ -1,0 +1,166 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #ffffff;
+  padding: 20px;
+  width: 100vw;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  height: fit-content;
+  align-items: flex-end;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.home-logo {
+  width: 57px;
+  height: 37px;
+  overflow: hidden;
+}
+
+.home-logo image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header-left p:nth-child(2) {
+  font-weight: 400;
+  font-size: 11px;
+  color: #a3a19e;
+}
+
+.header-left p:nth-child(3) {
+  font-weight: 600;
+  font-size: 18px;
+  color: #0f1f0d;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-right p:nth-child(1) {
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.header-right span:nth-child(2) {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #014a40;
+  font-weight: 700;
+  font-size: 24px;
+  color: #fffcfa;
+}
+
+.home-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 12px;
+}
+
+.search-container {
+  position: relative;
+}
+
+.home-search {
+  width: calc(100vw - 40px);
+  height: 42px;
+  background: #f2f2f2;
+  border-radius: 60px;
+  font-weight: 400;
+  font-size: 11px;
+  padding-left: 44px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-size: 22px;
+  color: #0f1f0d;
+}
+
+.food-image {
+  width: 297px;
+  height: 144px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.food-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.categories-container {
+  display: flex;
+  gap: 12px;
+  overflow: scroll;
+}
+
+.home-cat-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-cat-title p:nth-child(1) {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.home-popular {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 60px;
+}
+
+.home-pop-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-pop-title p:nth-child(1) {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.home-pop-title p:nth-child(2) {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: #f19f5d;
+}
+
+.popular-container {
+  display: flex;
+  gap: 12px;
+  overflow: scroll;
+}

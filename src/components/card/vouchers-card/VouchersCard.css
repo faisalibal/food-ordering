@@ -1,0 +1,38 @@
+.voucher-card-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 330px;
+  height: 61px;
+  padding: 8px;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+}
+
+.voucher-icon {
+  font-size: 44px;
+  color: #dcdbd9;
+}
+
+.voucher-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.voucher-detail span:nth-child(1) {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.voucher-detail span:nth-child(2) {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: #a3a19e;
+}
+
+.voucher-usenow p {
+  color: #80d33e;
+}
