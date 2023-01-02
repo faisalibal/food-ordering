@@ -7,6 +7,7 @@ import { HomePage } from "./page/home-page/HomePage";
 import { LandingPage } from "./page/landing-page/LandingPage";
 import { OrderList } from "./page/order-list/OrderList";
 import { Reservation } from "./page/reservation/Reservation";
+import { fetchFavourite } from "./redux/favouriteSlice";
 import { useAppDispatch } from "./redux/hook";
 import { fetchOrderList } from "./redux/OrderListSlice";
 
@@ -15,6 +16,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchOrderList());
+    dispatch(fetchFavourite());
   }, []);
 
   return (

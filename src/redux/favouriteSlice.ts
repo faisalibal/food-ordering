@@ -26,20 +26,27 @@ export const fetchFavourite = createAsyncThunk(
   }
 );
 
-// export const fetchFoodId = createAsyncThunk(
-//   "food/fetchFoodId",
-//   async (id: string) => {
-//     try {
-//       const res = await apiJsonServer.get(`/food/${id}`);
-//       return res.data;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-// );
+export const postFavourite = createAsyncThunk(
+  "favourite/postFavourite",
+  async (value: FoodDTO) => {
+    return await apiJsonServer.post(`/favourite`, value);
+  }
+);
+
+export const deleteFavourite = createAsyncThunk(
+  "favourite/deleteFavourite",
+  async (id: string) => {
+    try {
+      const res = await apiJsonServer.delete(`/favourite/${id}`);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 const FavouriteSlice = createSlice({
-  name: "food",
+  name: "favourite",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -57,6 +64,28 @@ const FavouriteSlice = createSlice({
     builder.addCase(fetchFavourite.rejected, (state, action) => {
       state.loading = false;
       state.favourite = [];
+      state.error = action.error.message || "Something went wrong";
+    });
+    builder.addCase(postFavourite.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(postFavourite.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = "";
+    });
+    builder.addCase(postFavourite.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || "Something went wrong";
+    });
+    builder.addCase(deleteFavourite.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteFavourite.fulfilled, (state, action) => {
+      state.loading = false;
+      state.error = "";
+    });
+    builder.addCase(deleteFavourite.rejected, (state, action) => {
+      state.loading = false;
       state.error = action.error.message || "Something went wrong";
     });
   },

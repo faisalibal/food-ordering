@@ -14,12 +14,20 @@ import {
 import useOnClickOutside from "../../../hook/useOnCLickOutside";
 import chef from "../../../assets/icons/chef.png";
 import cabai from "../../../assets/icons/cabai.png";
+import {
+  deleteFavourite,
+  fetchFavourite,
+  postFavourite,
+} from "../../../redux/favouriteSlice";
 
 export const AddToChart = () => {
   //======================Start Dispatch Redux=========================//
   const dispatch = useAppDispatch();
   const { foodId } = useAppSelector((state) => ({
     ...state.food,
+  }));
+  const { favourite } = useAppSelector((state) => ({
+    ...state.favourite,
   }));
   const { orderList } = useAppSelector((state) => ({
     ...state.orderList,
@@ -30,6 +38,7 @@ export const AddToChart = () => {
   const bodyModal = useRef(null);
   const [counter, setCounter] = useState<number>(1);
   const [availableOrder, setAvailableOrder] = useState<boolean>(false);
+  const [availableFavourite, setAvailableFavourite] = useState<boolean>(false);
   const [itemChart, setItemChart] = useState<OrderListDTO>({
     id: foodId?.id,
     kategory: foodId?.kategory,
@@ -74,6 +83,17 @@ export const AddToChart = () => {
       setCounter(counter + 1);
     }
   };
+
+  const handleAddFavourite = () => {
+    if (availableFavourite) {
+      dispatch(deleteFavourite(foodId.id));
+      dispatch(fetchFavourite());
+      setAvailableFavourite(false);
+    } else {
+      dispatch(postFavourite(foodId));
+      setAvailableFavourite(true);
+    }
+  };
   //====================End Handle Function=======================//
 
   //====================Start UseEffect===========================//
@@ -106,7 +126,16 @@ export const AddToChart = () => {
         }));
       }
     };
+
+    const heartFavourite = () => {
+      const heart = favourite.filter((item) => item.id === foodId.id);
+      if (heart.length >= 1) {
+        setAvailableFavourite(true);
+      }
+    };
+
     viewOptions();
+    heartFavourite();
   }, []);
   //====================End UseEffect===========================//
 
@@ -166,8 +195,17 @@ export const AddToChart = () => {
               width: "100%",
             }}
           >
-            <div style={{ position: "absolute", right: "0px" }}>
-              <BsFillHeartFill style={{ fontSize: "36px", color: "#fffcfa" }} />
+            <div
+              style={{ position: "absolute", right: "0px" }}
+              onClick={() => handleAddFavourite()}
+            >
+              <BsFillHeartFill
+                style={
+                  availableFavourite
+                    ? { color: "#F19F5D", fontSize: "36px" }
+                    : { color: "#fffcfa", fontSize: "36px" }
+                }
+              />
             </div>
             <div className="modal-chart-image">
               <img src={foodId.image} alt="chart-image" />
