@@ -1,0 +1,38 @@
+.confirmation-card-container {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  justify-content: space-between;
+  width: calc(100vw - 60px);
+}
+
+.confirmation-card-left p:nth-child(1) {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.confirmation-card-left p:nth-child(2) {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  color: #a3a19e;
+}
+
+.confirmation-card-container p:nth-child(3) {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: #a3a19e;
+}
+
+.confirmation-card-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.confirmation-card-right > p {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #014a40;
+}

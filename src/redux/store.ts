@@ -4,6 +4,7 @@ import orderListReducer from "./OrderListSlice";
 import addModalChartReducer from "./AddChartModal";
 import voucherModalReducer from "./VoucherModal";
 import favouriteReducer from "./favouriteSlice";
+import confirmationRducer from "./confirmationModal";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     addModalChart: addModalChartReducer,
     voucherModal: voucherModalReducer,
     favourite: favouriteReducer,
+    confirmation: confirmationRducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

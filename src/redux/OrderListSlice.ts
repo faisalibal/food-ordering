@@ -6,6 +6,7 @@ export type initialStates = {
   loading: boolean;
   orderList: OrderListDTO[];
   subTotal?: number;
+  totalItem?: number;
   taxes?: number;
   total?: number;
   error: string;
@@ -15,6 +16,7 @@ const initialState: initialStates = {
   loading: false,
   orderList: [],
   subTotal: 0,
+  totalItem: 0,
   taxes: 0,
   total: 0,
   error: "",
@@ -37,6 +39,14 @@ export const getOrderSubTotal = (orderList: OrderListDTO[]): number => {
     0
   );
   return total;
+};
+
+export const getOrderTotalItem = (orderList: OrderListDTO[]): number => {
+  const totalItem = orderList?.reduce(
+    (amount, item) => item.quantity + amount,
+    0
+  );
+  return totalItem;
 };
 
 export const getOrderTaxes = (orderList: OrderListDTO[]): number => {
@@ -101,6 +111,7 @@ const OrderListSlice = createSlice({
         state.loading = false;
         state.orderList = action.payload;
         state.subTotal = getOrderSubTotal(state.orderList);
+        state.totalItem = getOrderTotalItem(state.orderList);
         state.taxes = getOrderTaxes(state.orderList);
         state.total = getOrderTotal(state.orderList);
         state.error = "";

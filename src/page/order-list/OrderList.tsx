@@ -11,22 +11,26 @@ import { AnimatePresence } from "framer-motion";
 import { voucherModalTrue } from "../../redux/VoucherModal";
 import { Vouchers } from "../../components/modal/vouchers/Vouchers";
 import { AddToChart } from "../../components/modal/add-to-chart/AddToChart";
+import { confirmationModalTrue } from "../../redux/confirmationModal";
+import { OrderConfirmation } from "../../components/modal/order-confirmation/OrderConfirmation";
 
 export const OrderList = () => {
   useLayoutEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
   const dispatch = useAppDispatch();
-  const { orderList, subTotal, taxes, total, loading, error } = useAppSelector(
-    (state) => ({
+  const { orderList, subTotal, totalItem, taxes, total, loading, error } =
+    useAppSelector((state) => ({
       ...state.orderList,
-    })
-  );
+    }));
   const { addChartModal } = useAppSelector((state) => ({
     ...state.addModalChart,
   }));
   const { voucherModal } = useAppSelector((state) => ({
     ...state.voucherModal,
+  }));
+  const { confirmationModal } = useAppSelector((state) => ({
+    ...state.confirmation,
   }));
 
   useEffect(() => {
@@ -37,6 +41,9 @@ export const OrderList = () => {
     <>
       <AnimatePresence>{voucherModal && <Vouchers />}</AnimatePresence>
       <AnimatePresence>{addChartModal && <AddToChart />}</AnimatePresence>
+      <AnimatePresence>
+        {confirmationModal && <OrderConfirmation />}
+      </AnimatePresence>
       <div className="order-page-container">
         <HeaderNav />
         <Navbar />
@@ -72,7 +79,7 @@ export const OrderList = () => {
               <div className="subtotal-summary">
                 <span>
                   <p>Subtotal</p>
-                  <small>{orderList.length} items</small>
+                  <small>{totalItem} items</small>
                 </span>
                 <span className="summary-price">Rp. {subTotal}</span>
               </div>
@@ -84,11 +91,16 @@ export const OrderList = () => {
             <div className="summary-total">
               <span>
                 <p>Total</p>
-                <small>{orderList?.length} items</small>
+                <small>{totalItem} items</small>
               </span>
               <p>Rp. {total}</p>
             </div>
-            <button className="summary-button">Proceed Order</button>
+            <button
+              className="summary-button"
+              onClick={() => dispatch(confirmationModalTrue())}
+            >
+              Proceed Order
+            </button>
           </div>
         </div>
       </div>
