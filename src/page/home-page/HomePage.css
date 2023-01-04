@@ -86,6 +86,11 @@
   font-weight: 400;
   font-size: 11px;
   padding-left: 44px;
+  outline: none;
+}
+
+.home-search:focus {
+  border: 1px solid var(--primary-color);
 }
 
 .search-icon {

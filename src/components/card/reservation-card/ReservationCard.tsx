@@ -1,25 +1,31 @@
 import { useState } from "react";
+import { ReservationDTO } from "../../../DTO/ReservationDTO";
 import "./ReservationCard.css";
 
-export const ReservationCard = () => {
+type reservation = {
+  reservation: ReservationDTO;
+};
+
+export const ReservationCard = ({ reservation }: reservation) => {
   const [paid, setPaid] = useState<boolean>(false);
+
   return (
     <div className="reservation-card">
       <section>
         <p>Booking Code</p>
-        <p>B010122001</p>
+        <p>B01012200{reservation.id}</p>
       </section>
       <section>
         <p>Date</p>
-        <p>01 January 2022</p>
+        <p>{reservation.date}</p>
       </section>
       <section>
         <p>Time</p>
-        <p>13:00 WIB</p>
+        <p>{reservation.time} WIB</p>
       </section>
       <section>
         <p>Number of Pax</p>
-        <p>2</p>
+        <p>{reservation.pax}</p>
       </section>
       <section>
         <p>Status</p>

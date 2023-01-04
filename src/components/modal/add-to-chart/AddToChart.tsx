@@ -19,8 +19,12 @@ import {
   fetchFavourite,
   postFavourite,
 } from "../../../redux/favouriteSlice";
+import { useLocation } from "react-router-dom";
 
 export const AddToChart = () => {
+  const location = useLocation();
+  const path = location.pathname.split("/")[1];
+
   //======================Start Dispatch Redux=========================//
   const dispatch = useAppDispatch();
   const { foodId } = useAppSelector((state) => ({
@@ -86,12 +90,28 @@ export const AddToChart = () => {
 
   const handleAddFavourite = () => {
     if (availableFavourite) {
-      dispatch(deleteFavourite(foodId.id));
-      dispatch(fetchFavourite());
-      setAvailableFavourite(false);
+      const handleFav = async () => {
+        await dispatch(deleteFavourite(foodId.id));
+        await dispatch(fetchFavourite());
+        setAvailableFavourite(false);
+        if (path === "your-favourites") {
+          setTimeout(() => {
+            dispatch(addChartModalFalse());
+          }, 100);
+        }
+      };
+      handleFav();
     } else {
-      dispatch(postFavourite(foodId));
-      setAvailableFavourite(true);
+      const handleFav = async () => {
+        try {
+          await dispatch(postFavourite(foodId));
+          await dispatch(fetchFavourite());
+          setAvailableFavourite(true);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      handleFav();
     }
   };
   //====================End Handle Function=======================//

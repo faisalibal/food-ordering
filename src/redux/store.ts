@@ -6,6 +6,8 @@ import voucherModalReducer from "./VoucherModal";
 import favouriteReducer from "./favouriteSlice";
 import confirmationReducer from "./confirmationModal";
 import bookingConfirmationReducer from "./bookingConfirmation";
+import reservationReducer from "./reservationSlice";
+import modalTableReducer from "./ModalTable";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +18,8 @@ const store = configureStore({
     favourite: favouriteReducer,
     confirmation: confirmationReducer,
     bookingConfirmation: bookingConfirmationReducer,
+    reservation: reservationReducer,
+    modalTable: modalTableReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

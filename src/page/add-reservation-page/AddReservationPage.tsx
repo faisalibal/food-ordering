@@ -11,6 +11,8 @@ import { AnimatePresence } from "framer-motion";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { BookingConfirmation } from "../../components/modal/booking-confirmation/BookingConfirmation";
 import { bookingConfirmationModalTrue } from "../../redux/bookingConfirmation";
+import { HelperDate } from "../../helper/HelperDate";
+import { fetchReservation } from "../../redux/reservationSlice";
 
 export const AddReservationPage = () => {
   const location = useLocation();
@@ -23,10 +25,14 @@ export const AddReservationPage = () => {
   const { bookingConfirmationModal } = useAppSelector((state) => ({
     ...state.bookingConfirmation,
   }));
+
+  const { reservationData, loading, error } = useAppSelector((state) => ({
+    ...state.reservation,
+  }));
   const dispatch = useAppDispatch();
 
   const [reservation, setReservation] = useState<ReservationDTO>({
-    id: 1,
+    id: reservationData.length + 2,
     name: "",
     phone: "",
     date: date.toString(),
@@ -64,6 +70,20 @@ export const AddReservationPage = () => {
     }));
   };
 
+  const handlePaxPlus = () => {
+    setReservation((prev) => ({
+      ...prev,
+      pax: prev.pax++,
+    }));
+  };
+
+  const handlePaxMin = () => {
+    setReservation((prev) => ({
+      ...prev,
+      pax: prev.pax--,
+    }));
+  };
+
   const buttonBooking = (time: string) => {
     const dateChoice = `${
       date.getMonth() + 1
@@ -93,20 +113,25 @@ export const AddReservationPage = () => {
         console.log("error");
       }
     };
+    dispatch(fetchReservation());
     getTime();
   }, []);
 
   useEffect(() => {
     setReservation((prev) => ({
       ...prev,
-      date: date.toString(),
+      date: HelperDate(date.toString()),
     }));
   }, [date]);
+
+  console.log(reservation);
 
   return (
     <>
       <AnimatePresence>
-        {bookingConfirmationModal && <BookingConfirmation />}
+        {bookingConfirmationModal && (
+          <BookingConfirmation reservation={reservation} />
+        )}
       </AnimatePresence>
       <div className="res-container">
         <div className="res-header">
@@ -180,11 +205,15 @@ export const AddReservationPage = () => {
             </div>
           </div>
           <div className="res-count-pax">
-            <button className="res-min">
+            <button
+              className={reservation.pax <= 1 ? "res-min" : "res-minus"}
+              onClick={() => handlePaxMin()}
+              disabled={reservation.pax === 1}
+            >
               <AiOutlineMinus style={{ color: "white", fontSize: "14px" }} />
             </button>
-            <p>1 Pax</p>
-            <button>
+            <p>{reservation.pax} Pax</p>
+            <button onClick={() => handlePaxPlus()}>
               <AiOutlinePlus style={{ color: "white", fontSize: "14px" }} />
             </button>
           </div>

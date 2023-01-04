@@ -55,7 +55,16 @@ export const OrderConfirmation = () => {
           className="modal-bar"
           onClick={() => dispatch(confirmationModalModalFalse())}
         ></div>
-        <h3 style={{ textAlign: "start" }}>Order Confirmation</h3>
+        <h3
+          style={{
+            textAlign: "left",
+            width: "100%",
+            fontWeight: "600",
+            fontSize: "18px",
+          }}
+        >
+          Order Confirmation
+        </h3>
         <div className="confirmation-card-box">
           {orderList.map((item) => (
             <ConfirmationCard orderList={item} />

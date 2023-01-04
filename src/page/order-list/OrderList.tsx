@@ -54,7 +54,7 @@ export const OrderList = () => {
               <img src={noData} alt="emptydata" />
             </div>
             <p>You dont have any order</p>
-            <Link to="/all-items">
+            <Link to="all-items">
               <button>Order now !</button>
             </Link>
           </div>
@@ -70,7 +70,7 @@ export const OrderList = () => {
                 <p>Need anything else?</p>
                 <small>Add other dishes, if you want.</small>
               </span>
-              <Link to="/all-items">
+              <Link to="all-items">
                 <button>Add more</button>
               </Link>
             </div>

@@ -25,3 +25,21 @@
   font-size: 28px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+.nav-item-choice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 150px;
+  overflow: scroll;
+  padding: 0px 0px;
+}
+
+.nav-item-choice span {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #dcdbd9;
+}

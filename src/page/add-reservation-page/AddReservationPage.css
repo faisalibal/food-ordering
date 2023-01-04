@@ -267,6 +267,10 @@
   color: white;
 }
 
+.res-minus {
+  background: #ec4c4c !important;
+}
+
 .res-min {
   background: #a3a19e !important;
 }

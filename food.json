@@ -66,11 +66,20 @@
   ],
   "order-list": [
     {
+      "id": "4",
+      "kategory": "main-course",
+      "name": "Nasi goreng rendang",
+      "price": 27000,
+      "quantity": 3,
+      "note": "",
+      "image": "https://asset.kompas.com/crops/UQLiOi-iyg8rIldUv7ojGjGgNYE=/0x0:1000x667/375x240/data/photo/2020/11/22/5fba747cef43d.jpg"
+    },
+    {
       "id": "1",
       "kategory": "main-course",
       "name": "Nasi goreng kecombrang",
       "price": 23000,
-      "quantity": 2,
+      "quantity": 3,
       "note": "",
       "image": "https://img.kurio.network/FgAKw0h9_V_LlG8xU3xojz5Vsf0=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/10/10/a7e9eaa0-1c22-42b0-a11f-0a5ad1d30126.jpeg"
     },
@@ -84,35 +93,7 @@
       "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2021/5/31/ffda46b8-9226-48a2-b419-f93270992817.jpg"
     }
   ],
-  "favourite": [
-    {
-      "id": "1",
-      "kategory": "main-course",
-      "name": "Nasi goreng kecombrang",
-      "price": 23000,
-      "available": true,
-      "description": "Nasi goreng dengan racikan spesial ala Michael Garden",
-      "image": "https://img.kurio.network/FgAKw0h9_V_LlG8xU3xojz5Vsf0=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/10/10/a7e9eaa0-1c22-42b0-a11f-0a5ad1d30126.jpeg"
-    },
-    {
-      "id": "6",
-      "kategory": "drinks",
-      "name": "Es teh manis",
-      "price": 10000,
-      "available": true,
-      "description": "Es Teh Manis dengan racikan spesial ala Michael Garden",
-      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2021/5/31/ffda46b8-9226-48a2-b419-f93270992817.jpg"
-    },
-    {
-      "id": "3",
-      "kategory": "main-course",
-      "name": "Nasi goreng kampung",
-      "price": 22000,
-      "available": true,
-      "image": "https://www.masakapahariini.com/wp-content/uploads/2019/06/nasi-goreng-seafood-780x440.jpg",
-      "description": "Nasi goreng dengan racikan spesial ala Michael Garden"
-    }
-  ],
+  "favourite": [],
   "reservation": [
     {
       "id": 1,
@@ -121,6 +102,30 @@
       "date": "Tue Jan 03 2023",
       "time": "14:00",
       "pax": 2
+    },
+    {
+      "id": 2,
+      "name": "Faisal Iqbal",
+      "phone": "+6281295516848",
+      "date": "04 Jan 2023",
+      "time": "17:00",
+      "pax": 3
+    },
+    {
+      "id": 4,
+      "name": "Faisal Iqbal",
+      "phone": "+6281295516848",
+      "date": "05 Jan 2023",
+      "time": "13:00",
+      "pax": 14
+    },
+    {
+      "id": 5,
+      "name": "Faisal Iqbal",
+      "phone": "+6281295516848",
+      "date": "05 Jan 2023",
+      "time": "13:00",
+      "pax": 3
     }
   ],
   "time": [

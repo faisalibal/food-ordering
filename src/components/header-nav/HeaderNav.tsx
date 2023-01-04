@@ -25,7 +25,7 @@ export const HeaderNav = () => {
             </button>
           </Link>
         ) : path === "order-list" ? (
-          <Link to="/all-items">
+          <Link to="all-items">
             <button className="plus-button">
               <AiOutlinePlus />
             </button>

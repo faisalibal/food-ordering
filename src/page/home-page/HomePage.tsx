@@ -12,10 +12,12 @@ import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { fetchFood } from "../../redux/FoodSlice";
 import { FoodCard } from "../../components/card/food-card/FoodCard";
 import { Navbar } from "../../components/navbar/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AddToChart } from "../../components/modal/add-to-chart/AddToChart";
 import { AnimatePresence } from "framer-motion";
 import { fetchOrderList } from "../../redux/OrderListSlice";
+import { modalTableTrue } from "../../redux/ModalTable";
+import { ModalTable } from "../../components/modal/modal-table/ModalTable";
 
 export const category = [
   {
@@ -47,6 +49,10 @@ export const HomePage = () => {
   const { addChartModal } = useAppSelector((state) => ({
     ...state.addModalChart,
   }));
+  const { modalTable } = useAppSelector((state) => ({
+    ...state.modalTable,
+  }));
+  const navigate = useNavigate();
 
   useLayoutEffect(() => {
     window.scrollTo({ top: 0 });
@@ -55,6 +61,7 @@ export const HomePage = () => {
   return (
     <>
       <AnimatePresence>{addChartModal && <AddToChart />}</AnimatePresence>
+      <AnimatePresence>{modalTable && <ModalTable />}</AnimatePresence>
       <div className="home-container">
         <Navbar />
         <div className="home-header">
@@ -67,7 +74,7 @@ export const HomePage = () => {
           </div>
           <div className="header-right">
             <p>Table No.</p>
-            <span>20</span>
+            <span onClick={() => dispatch(modalTableTrue())}>20</span>
           </div>
         </div>
         <div className="home-body">
@@ -86,7 +93,7 @@ export const HomePage = () => {
         <div className="home-categories">
           <div className="home-cat-title">
             <p>Categories</p>
-            <Link to="/all-items" style={{ textDecoration: "none" }}>
+            <Link to="all-items" style={{ textDecoration: "none" }}>
               <p style={{ fontSize: "11px", color: "#f19f5d" }}>
                 View All Items
               </p>
@@ -101,7 +108,7 @@ export const HomePage = () => {
         <div className="home-popular">
           <div className="home-pop-title">
             <p>Popular Now</p>
-            <p>View All</p>
+            <p onClick={() => navigate("popular-now")}>View All</p>
           </div>
           <div className="popular-container">
             {food.map((item, index) => (

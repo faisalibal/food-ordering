@@ -4,13 +4,28 @@ import { useRef } from "react";
 import { useAppDispatch } from "../../../redux/hook";
 import useOnClickOutside from "../../../hook/useOnCLickOutside";
 import { bookingConfirmationModalFalse } from "../../../redux/bookingConfirmation";
+import { ReservationDTO } from "../../../DTO/ReservationDTO";
+import { postReservation } from "../../../redux/reservationSlice";
+import { useNavigate } from "react-router-dom";
 
-export const BookingConfirmation = () => {
+type reservation = {
+  reservation: ReservationDTO;
+};
+
+export const BookingConfirmation = ({ reservation }: reservation) => {
   const bookingConfirmationRef = useRef(null);
   const dispatch = useAppDispatch();
   useOnClickOutside(bookingConfirmationRef, () =>
     dispatch(bookingConfirmationModalFalse())
   );
+  const navigate = useNavigate();
+
+  const handlePostReservation = async () => {
+    await dispatch(postReservation(reservation));
+    dispatch(bookingConfirmationModalFalse());
+    navigate("/reservation");
+  };
+
   return (
     <motion.div
       initial={{
@@ -57,23 +72,23 @@ export const BookingConfirmation = () => {
         <div className="booking-information">
           <span>
             <p>Name</p>
-            <p>John Doe</p>
+            <p>{reservation.name}</p>
           </span>
           <span>
             <p>Phone Number</p>
-            <p>+62 8123456789</p>
+            <p>{reservation.phone}</p>
           </span>
           <span>
             <p>Date</p>
-            <p>01 January 2023</p>
+            <p>{reservation.date}</p>
           </span>
           <span>
             <p>Time</p>
-            <p>13:00 WIB</p>
+            <p>{reservation.time} WIB</p>
           </span>
           <span>
             <p>Number of Pax</p>
-            <p>2</p>
+            <p>{reservation.pax}</p>
           </span>
         </div>
         <div className="booking-confirmation-term">
@@ -96,7 +111,12 @@ export const BookingConfirmation = () => {
             </div>
           </div>
         </div>
-        <button className="booking-term-button">Confirm</button>
+        <button
+          className="booking-term-button"
+          onClick={() => handlePostReservation()}
+        >
+          Confirm
+        </button>
       </motion.div>
     </motion.div>
   );
