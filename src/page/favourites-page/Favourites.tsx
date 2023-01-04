@@ -33,11 +33,18 @@ export const Favourites = () => {
       <div className="allitems-container">
         <HeaderNav />
         <Navbar />
-        <div className="all-items-card-container">
-          {favourite.map((item, index) => (
-            <FoodCard foodItem={item} key={index} />
-          ))}
-        </div>
+
+        {favourite.length < 1 ? (
+          <div className="empty-favourites">
+            <p>You don't have favourite food</p>
+          </div>
+        ) : (
+          <div className="favourite-container">
+            {favourite.map((item, index) => (
+              <FoodCard foodItem={item} key={index} />
+            ))}
+          </div>
+        )}
         <button className="allitems-button">
           <BiSpreadsheet />
         </button>

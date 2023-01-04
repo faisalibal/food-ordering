@@ -19,9 +19,11 @@ export const HeaderNav = () => {
       </span>
       <span>
         {path === "reservation" ? (
-          <button className="plus-button">
-            <AiOutlinePlus />
-          </button>
+          <Link to="new-reservation">
+            <button className="plus-button">
+              <AiOutlinePlus />
+            </button>
+          </Link>
         ) : path === "order-list" ? (
           <Link to="/all-items">
             <button className="plus-button">

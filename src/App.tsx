@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AccountPage } from "./page/account-page/AccountPage";
+import { AddReservationPage } from "./page/add-reservation-page/AddReservationPage";
 import { Allitems } from "./page/all-items/Allitems";
 import { Favourites } from "./page/favourites-page/Favourites";
 import { HomePage } from "./page/home-page/HomePage";
@@ -29,6 +30,10 @@ function App() {
         <Route path="/your-favourites" element={<Favourites />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route
+          path="/reservation/new-reservation"
+          element={<AddReservationPage />}
+        />
       </Routes>
     </BrowserRouter>
   );
