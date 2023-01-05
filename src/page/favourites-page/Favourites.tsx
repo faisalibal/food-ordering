@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { FoodCard } from "../../components/card/food-card/FoodCard";
 import { HeaderNav } from "../../components/header-nav/HeaderNav";
 import { BiSpreadsheet } from "react-icons/bi";
@@ -16,6 +16,8 @@ export const Favourites = () => {
   const { addChartModal } = useAppSelector((state) => ({
     ...state.addModalChart,
   }));
+  const [search, setSearch] = useState<string>("");
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchFavourite());
@@ -31,7 +33,7 @@ export const Favourites = () => {
     <>
       <AnimatePresence>{addChartModal && <AddToChart />}</AnimatePresence>
       <div className="allitems-container">
-        <HeaderNav />
+        <HeaderNav setSearch={setSearch} />
         <Navbar />
 
         {favourite.length < 1 ? (
@@ -40,9 +42,11 @@ export const Favourites = () => {
           </div>
         ) : (
           <div className="favourite-container">
-            {favourite.map((item, index) => (
-              <FoodCard foodItem={item} key={index} />
-            ))}
+            {favourite
+              .filter((item) => item.name.toLocaleLowerCase().includes(search))
+              .map((item, index) => (
+                <FoodCard foodItem={item} key={index} />
+              ))}
           </div>
         )}
         <button className="allitems-button">

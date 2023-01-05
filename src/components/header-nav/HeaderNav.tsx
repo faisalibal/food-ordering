@@ -3,18 +3,31 @@ import { IoIosArrowBack } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsSearch } from "react-icons/bs";
+import { InputSearch } from "../input/InputSearch";
+import { useAppSelector } from "../../redux/hook";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export const HeaderNav = () => {
+type search = {
+  setSearch: Dispatch<SetStateAction<string>>;
+};
+
+export const HeaderNav = ({ setSearch }: search) => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname.split("/")[1];
+  const { searchActive } = useAppSelector((state) => ({
+    ...state.searchInput,
+  }));
 
   return (
     <div className="header-nav-container">
       <span className="header-back" onClick={() => navigate(-1)}>
         <IoIosArrowBack onClick={() => navigate(0)} />
       </span>
-      <span className="header-nav-name">
+      <span
+        className="header-nav-name"
+        style={searchActive ? { display: "none" } : {}}
+      >
         <p>{path.split("-").join(" ")}</p>
       </span>
       <span>
@@ -30,10 +43,8 @@ export const HeaderNav = () => {
               <AiOutlinePlus />
             </button>
           </Link>
-        ) : path === "all-items" ? (
-          <BsSearch style={{ fontSize: "20px" }} />
         ) : path === "your-favourites" ? (
-          <BsSearch style={{ fontSize: "20px" }} />
+          <InputSearch setSearch={setSearch} />
         ) : (
           ""
         )}

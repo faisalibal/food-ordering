@@ -64,25 +64,29 @@
       "image": "https://keluyuran.com/wp-content/uploads/2021/07/Pajeon_.webp"
     }
   ],
+  "category": [
+    {
+      "category": "main-course",
+      "categoryName": "Main Course",
+      "image": "https://iili.io/HRou1gR.png"
+    },
+    {
+      "category": "drinks",
+      "categoryName": "Drinks",
+      "image": "https://iili.io/HRouwss.png"
+    },
+    {
+      "category": "side-dish",
+      "categoryName": "Side Dish",
+      "image": "https://iili.io/HRou8dl.png"
+    },
+    {
+      "category": "snacks",
+      "categoryName": "Snacks",
+      "image": "https://iili.io/HRouUeS.png"
+    }
+  ],
   "order-list": [
-    {
-      "id": "4",
-      "kategory": "main-course",
-      "name": "Nasi goreng rendang",
-      "price": 27000,
-      "quantity": 3,
-      "note": "",
-      "image": "https://asset.kompas.com/crops/UQLiOi-iyg8rIldUv7ojGjGgNYE=/0x0:1000x667/375x240/data/photo/2020/11/22/5fba747cef43d.jpg"
-    },
-    {
-      "id": "1",
-      "kategory": "main-course",
-      "name": "Nasi goreng kecombrang",
-      "price": 23000,
-      "quantity": 3,
-      "note": "",
-      "image": "https://img.kurio.network/FgAKw0h9_V_LlG8xU3xojz5Vsf0=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/10/10/a7e9eaa0-1c22-42b0-a11f-0a5ad1d30126.jpeg"
-    },
     {
       "id": "6",
       "kategory": "drinks",
@@ -93,7 +97,17 @@
       "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2021/5/31/ffda46b8-9226-48a2-b419-f93270992817.jpg"
     }
   ],
-  "favourite": [],
+  "favourite": [
+    {
+      "id": "5",
+      "kategory": "drinks",
+      "name": "Es Jeruk",
+      "price": 10000,
+      "available": true,
+      "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg",
+      "description": "Es Jeruk dengan racikan spesial ala Michael Garden"
+    }
+  ],
   "reservation": [
     {
       "id": 1,

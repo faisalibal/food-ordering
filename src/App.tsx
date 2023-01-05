@@ -26,9 +26,17 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/home/all-items" element={<Allitems />} />
+        <Route path="/home/main-course" element={<Allitems />} />
+        <Route path="/home/drinks" element={<Allitems />} />
+        <Route path="/home/side-dish" element={<Allitems />} />
+        <Route path="/home/snacks" element={<Allitems />} />
         <Route path="/home/popular-now" element={<Allitems />} />
         <Route path="/order-list" element={<OrderList />} />
         <Route path="/order-list/all-items" element={<Allitems />} />
+        <Route path="/order-list/main-course" element={<Allitems />} />
+        <Route path="/order-list/drinks" element={<Allitems />} />
+        <Route path="/order-list/side-dish" element={<Allitems />} />
+        <Route path="/order-list/snacks" element={<Allitems />} />
         <Route path="/your-favourites" element={<Favourites />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/account" element={<AccountPage />} />

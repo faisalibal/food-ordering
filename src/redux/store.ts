@@ -8,6 +8,8 @@ import confirmationReducer from "./confirmationModal";
 import bookingConfirmationReducer from "./bookingConfirmation";
 import reservationReducer from "./reservationSlice";
 import modalTableReducer from "./ModalTable";
+import categoryReducer from "./CategorySlice";
+import searchReducer from "./SearchInput";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +22,8 @@ const store = configureStore({
     bookingConfirmation: bookingConfirmationReducer,
     reservation: reservationReducer,
     modalTable: modalTableReducer,
+    category: categoryReducer,
+    searchInput: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

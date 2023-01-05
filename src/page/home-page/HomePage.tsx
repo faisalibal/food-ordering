@@ -2,12 +2,8 @@ import "./HomePage.css";
 import logo from "../../assets/images/logo.png";
 import sphagetti from "../../assets/images/sphagetti.jpg";
 import { BsSearch } from "react-icons/bs";
-import mainCourse from "../../assets/images/cat-course.png";
-import drinks from "../../assets/images/cat-drink.png";
-import sideDish from "../../assets/images/cat-sideDish.png";
-import snacks from "../../assets/images/cat-snacks.png";
 import { CategoriesCard } from "../../components/card/categories-card/CategoriesCard";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { fetchFood } from "../../redux/FoodSlice";
 import { FoodCard } from "../../components/card/food-card/FoodCard";
@@ -15,36 +11,23 @@ import { Navbar } from "../../components/navbar/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { AddToChart } from "../../components/modal/add-to-chart/AddToChart";
 import { AnimatePresence } from "framer-motion";
-import { fetchOrderList } from "../../redux/OrderListSlice";
 import { modalTableTrue } from "../../redux/ModalTable";
 import { ModalTable } from "../../components/modal/modal-table/ModalTable";
-
-export const category = [
-  {
-    categoryName: "Main Course",
-    image: mainCourse,
-  },
-  {
-    categoryName: "Drinks",
-    image: drinks,
-  },
-  {
-    categoryName: "Side Dish",
-    image: sideDish,
-  },
-  {
-    categoryName: "Snacks",
-    image: snacks,
-  },
-];
+import { fetchCategory } from "../../redux/CategorySlice";
+import { Greeting } from "../../helper/Greeting";
 
 export const HomePage = () => {
   const { food, loading, error } = useAppSelector((state) => ({
     ...state.food,
   }));
+  const { category } = useAppSelector((state) => ({
+    ...state.category,
+  }));
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchFood());
+    dispatch(fetchCategory());
   }, []);
   const { addChartModal } = useAppSelector((state) => ({
     ...state.addModalChart,
@@ -70,7 +53,7 @@ export const HomePage = () => {
               <img src={logo} alt="logo" />
             </div>
             <p>Hi, John Doe</p>
-            <p>Good Afternoon</p>
+            <p>{Greeting()}</p>
           </div>
           <div className="header-right">
             <p>Table No.</p>
@@ -100,8 +83,10 @@ export const HomePage = () => {
             </Link>
           </div>
           <div className="categories-container">
-            {category.map((item, index) => (
-              <CategoriesCard CategoryItem={item} key={index} />
+            {category?.map((item, index) => (
+              <Link to={`/home/${item.category}`} key={index}>
+                <CategoriesCard CategoryItem={item} />
+              </Link>
             ))}
           </div>
         </div>

@@ -66,8 +66,8 @@ export const OrderConfirmation = () => {
           Order Confirmation
         </h3>
         <div className="confirmation-card-box">
-          {orderList.map((item) => (
-            <ConfirmationCard orderList={item} />
+          {orderList.map((item, index) => (
+            <ConfirmationCard orderList={item} key={index} />
           ))}
         </div>
         <div className="confirmation-box">
