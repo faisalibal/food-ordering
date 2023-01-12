@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AccountPage } from "./page/account-page/AccountPage";
 import { AddReservationPage } from "./page/add-reservation-page/AddReservationPage";
 import { Allitems } from "./page/all-items/Allitems";
+import { EditProfile } from "./page/edit-profile/EditProfile";
 import { Favourites } from "./page/favourites-page/Favourites";
+import { GuestLoginPage } from "./page/guest-login-page/GuestLoginPage";
 import { HomePage } from "./page/home-page/HomePage";
 import { LandingPage } from "./page/landing-page/LandingPage";
 import { OrderList } from "./page/order-list/OrderList";
@@ -24,6 +26,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/guest-login" element={<GuestLoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/home/all-items" element={<Allitems />} />
         <Route path="/home/main-course" element={<Allitems />} />
@@ -40,6 +43,7 @@ function App() {
         <Route path="/your-favourites" element={<Favourites />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/account/edit-profile" element={<EditProfile />} />
         <Route
           path="/reservation/new-reservation"
           element={<AddReservationPage />}

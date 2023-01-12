@@ -2,7 +2,6 @@ import "./HeaderNav.css";
 import { IoIosArrowBack } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
-import { BsSearch } from "react-icons/bs";
 import { InputSearch } from "../input/InputSearch";
 import { useAppSelector } from "../../redux/hook";
 import { Dispatch, SetStateAction, useState } from "react";

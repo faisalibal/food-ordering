@@ -5,6 +5,7 @@ import { HiOutlineTicket } from "react-icons/hi";
 import { Navbar } from "../../components/navbar/Navbar";
 import avatar from "../../assets/images/avatar.png";
 import { useLayoutEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const AccountPage = () => {
   const [progress, useProgress] = useState<Number>(70);
@@ -27,10 +28,12 @@ export const AccountPage = () => {
         </div>
         <div className="account-information-right">
           <span>Member</span>
-          <span>
-            <BiEdit />
-            <p>Edit profile</p>
-          </span>
+          <Link to="edit-profile">
+            <span className="edit-profile-nav">
+              <BiEdit />
+              <p>Edit profile</p>
+            </span>
+          </Link>
         </div>
       </div>
       <h4 className="account-bold">Complete your profile</h4>
