@@ -19,17 +19,27 @@ export const HeaderNav = ({ setSearch }: search) => {
   }));
 
   return (
-    <div className="header-nav-container">
-      <span className="header-back" onClick={() => navigate(-1)}>
+    <div className="header-nav-container relative">
+      <span
+        className="header-back"
+        onClick={() => navigate(-1)}
+        style={
+          path === "reservation" ||
+          path === "your-favourites" ||
+          path === "order-list"
+            ? { display: "none" }
+            : {}
+        }
+      >
         <IoIosArrowBack onClick={() => navigate(0)} />
       </span>
       <span
-        className="header-nav-name"
+        className="header-nav-name w-full"
         style={searchActive ? { display: "none" } : {}}
       >
-        <p>{path.split("-").join(" ")}</p>
+        <p className="w-full text-center">{path.split("-").join(" ")}</p>
       </span>
-      <span>
+      <span className="absolute top-1 right-0">
         {path === "reservation" ? (
           <Link to="new-reservation">
             <button className="plus-button">

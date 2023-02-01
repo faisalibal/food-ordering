@@ -88,67 +88,33 @@
   ],
   "order-list": [
     {
-      "id": "6",
-      "kategory": "drinks",
-      "name": "Es teh manis",
-      "price": 10000,
-      "quantity": 6,
-      "note": "",
-      "image": "https://images.tokopedia.net/img/cache/700/VqbcmM/2021/5/31/ffda46b8-9226-48a2-b419-f93270992817.jpg"
-    },
-    {
-      "id": "3",
+      "id": "1",
       "kategory": "main-course",
-      "name": "Nasi goreng kampung",
-      "price": 22000,
+      "name": "Nasi goreng kecombrang",
+      "price": 23000,
       "quantity": 1,
       "note": "",
-      "image": "https://www.masakapahariini.com/wp-content/uploads/2019/06/nasi-goreng-seafood-780x440.jpg"
-    }
-  ],
-  "favourite": [
+      "image": "https://img.kurio.network/FgAKw0h9_V_LlG8xU3xojz5Vsf0=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/10/10/a7e9eaa0-1c22-42b0-a11f-0a5ad1d30126.jpeg"
+    },
     {
       "id": "5",
       "kategory": "drinks",
       "name": "Es Jeruk",
       "price": 10000,
-      "available": true,
-      "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg",
-      "description": "Es Jeruk dengan racikan spesial ala Michael Garden"
+      "quantity": 1,
+      "note": "",
+      "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg"
     }
   ],
+  "favourite": [],
   "reservation": [
     {
-      "id": 1,
-      "name": "Faisal Iqbal",
-      "phone": "+6281295512345",
-      "date": "Tue Jan 03 2023",
-      "time": "14:00",
-      "pax": 2
-    },
-    {
       "id": 2,
-      "name": "Faisal Iqbal",
-      "phone": "+6281295516848",
-      "date": "04 Jan 2023",
+      "name": "Faisal",
+      "phone": "+62812345679",
+      "date": "01 Feb 2023",
       "time": "17:00",
-      "pax": 3
-    },
-    {
-      "id": 4,
-      "name": "Faisal Iqbal",
-      "phone": "+6281295516848",
-      "date": "05 Jan 2023",
-      "time": "13:00",
-      "pax": 14
-    },
-    {
-      "id": 5,
-      "name": "Faisal Iqbal",
-      "phone": "+6281295516848",
-      "date": "05 Jan 2023",
-      "time": "13:00",
-      "pax": 3
+      "pax": 5
     }
   ],
   "time": [

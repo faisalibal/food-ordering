@@ -52,10 +52,12 @@ export const AccountPage = () => {
       </div>
       <h4 className="account-bold">Account</h4>
       <div className="card-menu-container">
-        <span className="account-card-menu">
-          <CgLoadbarDoc style={{ fontSize: "28px" }} />
-          <p>Transaction history</p>
-        </span>
+        <Link to="/account/transaction-history">
+          <span className="account-card-menu">
+            <CgLoadbarDoc style={{ fontSize: "28px" }} />
+            <p>Transaction history</p>
+          </span>
+        </Link>
         <span className="account-card-menu">
           <HiOutlineTicket style={{ fontSize: "28px" }} />
           <p>My voucher</p>

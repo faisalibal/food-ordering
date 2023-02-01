@@ -34,8 +34,6 @@
   height: 29px;
   background: #4ae199;
   border-radius: 27px;
-  font-weight: 600;
-  font-size: 18px;
   line-height: 12px;
   text-align: center;
   color: #ffffff;
@@ -45,9 +43,7 @@
   display: flex;
 }
 
-.add-photo-container
-
-.add-photo-container div p:nth-child(1) {
+.add-photo-container .add-photo-container div p:nth-child(1) {
   font-weight: 600;
   font-size: 11px;
   color: #000000;

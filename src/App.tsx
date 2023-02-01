@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AccountInfo from "./page/account-info/account-info";
 import { AccountPage } from "./page/account-page/AccountPage";
 import { AddReservationPage } from "./page/add-reservation-page/AddReservationPage";
 import { Allitems } from "./page/all-items/Allitems";
@@ -48,6 +49,7 @@ function App() {
           path="/reservation/new-reservation"
           element={<AddReservationPage />}
         />
+        <Route path="/account/:info" element={<AccountInfo />} />
       </Routes>
     </BrowserRouter>
   );

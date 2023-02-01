@@ -36,7 +36,7 @@ export const postReservation = createAsyncThunk(
 
 export const deleteReservation = createAsyncThunk(
   "reservation/deleteReservation",
-  async (id: string) => {
+  async (id: number) => {
     try {
       const res = await apiJsonServer.delete(`/reservation/${id}`);
       return res.data;
