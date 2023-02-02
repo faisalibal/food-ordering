@@ -107,16 +107,7 @@
     }
   ],
   "favourite": [],
-  "reservation": [
-    {
-      "id": 2,
-      "name": "Faisal",
-      "phone": "+62812345679",
-      "date": "01 Feb 2023",
-      "time": "17:00",
-      "pax": 5
-    }
-  ],
+  "reservation": [],
   "time": [
     "11:00",
     "12:00",
@@ -129,5 +120,58 @@
     "19:00",
     "20:00",
     "21:00"
+  ],
+  "running-orders": [
+    {
+      "id": "a1",
+      "detail-order": [
+        {
+          "id": "1",
+          "kategory": "main-course",
+          "name": "Nasi goreng kecombrang",
+          "price": 23000,
+          "quantity": 1,
+          "note": "",
+          "status": "waiting cook",
+          "image": "https://img.kurio.network/FgAKw0h9_V_LlG8xU3xojz5Vsf0=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/10/10/a7e9eaa0-1c22-42b0-a11f-0a5ad1d30126.jpeg"
+        },
+        {
+          "id": "5",
+          "kategory": "drinks",
+          "name": "Es Jeruk",
+          "price": 10000,
+          "quantity": 1,
+          "note": "",
+          "status": "waiting cook",
+          "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg"
+        }
+      ]
+    }
+  ],
+  "status": [
+    "waiting cook",
+    "On cook",
+    "Being delivered",
+    "Already Delivered"
+  ],
+  "users": [
+    {
+      "name": "Faisal Iqbal",
+      "username": "faisalibal",
+      "email": "faisaliqbal030397@gmail.com",
+      "phone": "+6281295516848",
+      "avatar": "https://ichef.bbci.co.uk/news/976/cpsprodpb/1558/production/_127646450_rasoul.jpg",
+      "birthday": "03-03-1997",
+      "password": "12345678"
+    },
+    {
+      "name": "Dennis Dharmawangsa",
+      "username": "dennisdharmawangsa",
+      "email": "dennisdharmawangsa@gmail.com",
+      "phone": "+6281295516847",
+      "avatar": "https://www.science.org/do/10.1126/science.ade7005/abs/_20220901_on_down_syndrome_adult.jpg",
+      "birthday": "21-09-1997",
+      "password": "12345678"
+    }
   ]
 }

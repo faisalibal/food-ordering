@@ -1,10 +1,10 @@
-import "./Vouchers.css";
-import { motion } from "framer-motion";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { VouchersCard } from "../../card/vouchers-card/VouchersCard";
-import { voucherModalModalFalse } from "../../../redux/VoucherModal";
-import useOnClickOutside from "../../../hook/useOnCLickOutside";
-import { useRef } from "react";
+import './Vouchers.css';
+import { motion } from 'framer-motion';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { VouchersCard } from '../../card/vouchers-card/VouchersCard';
+import { voucherModalModalFalse } from '../../../redux/VoucherModal';
+import useOnClickOutside from '../../../hook/useOnCLickOutside';
+import { useRef } from 'react';
 
 export const Vouchers = () => {
   const { voucherModal } = useAppSelector((state) => ({
@@ -38,13 +38,13 @@ export const Vouchers = () => {
     >
       <motion.div
         initial={{
-          transform: "translateY(100%)",
+          transform: 'translateY(100%)',
         }}
         animate={{
-          transform: "translateY(0%)",
+          transform: 'translateY(0%)',
         }}
         exit={{
-          transform: "translateY(100%)",
+          transform: 'translateY(100%)',
         }}
         className="modal-voucher-container"
         ref={voucherModalFalse}

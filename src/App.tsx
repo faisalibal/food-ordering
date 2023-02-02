@@ -6,7 +6,16 @@ import { AddReservationPage } from './page/add-reservation-page/AddReservationPa
 import { Allitems } from './page/all-items/Allitems';
 import { EditProfile } from './page/edit-profile/EditProfile';
 import { Favourites } from './page/favourites-page/Favourites';
-import { GuestLoginPage } from './page/guest-login-page/GuestLoginPage';
+import {
+  GuestLoginPage,
+  LoginPage,
+  RegisterPage,
+} from './page/guest-login-page/GuestLoginPage';
+import {
+  MyVoucher,
+  ReservationHistory,
+  TransactionHistory,
+} from './page/history';
 import { HomePage } from './page/home-page/HomePage';
 import { LandingPage } from './page/landing-page/LandingPage';
 import { OrderList } from './page/order-list/OrderList';
@@ -28,6 +37,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/guest-login" element={<GuestLoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/home/all-items" element={<Allitems />} />
         <Route path="/home/main-course" element={<Allitems />} />
@@ -50,6 +61,15 @@ function App() {
           element={<AddReservationPage />}
         />
         <Route path="/account/:info" element={<AccountInfo />} />
+        <Route
+          path="/account/transaction-history"
+          element={<TransactionHistory />}
+        />
+        <Route path="/account/my-voucher" element={<MyVoucher />} />
+        <Route
+          path="/account/reservation-history"
+          element={<ReservationHistory />}
+        />
       </Routes>
     </BrowserRouter>
   );

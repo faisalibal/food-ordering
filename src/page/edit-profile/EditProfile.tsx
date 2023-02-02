@@ -1,28 +1,18 @@
-import { IoIosArrowBack } from "react-icons/io";
-import { useLocation, useNavigate } from "react-router-dom";
-import avatar from "../../assets/images/avatar.png";
-import "./EditProfile.css";
+import { IoIosArrowBack } from 'react-icons/io';
+import { useLocation, useNavigate } from 'react-router-dom';
+import avatar from '../../assets/images/avatar.png';
+import { HeaderNavAccount } from '../../components/header-nav/HeaderNav';
+import { InputDate } from '../../components/input';
+import './EditProfile.css';
 
 export const EditProfile = () => {
   const location = useLocation();
-  const path = location.pathname.split("/")[1];
+  const path = location.pathname.split('/')[1];
   const navigate = useNavigate();
 
   return (
     <div className="edit-profile-container">
-      <div className="edit-profile-header relative w-full">
-        <span
-          onClick={() => navigate(`/${path}`)}
-          className="absolute left-0"
-          style={{ top: "-6px" }}
-        >
-          <IoIosArrowBack />
-        </span>
-        <p className="w-full text-center">Edit Profile</p>
-        <button className="text-sm absolute right-0" style={{ top: "-2px" }}>
-          Save
-        </button>
-      </div>
+      <HeaderNavAccount />
       <div className="add-photo-container flex items-center gap-4 mt-3">
         <div className="flex flex-col items-center gap-2">
           <p className="text-xs font-semibold">Profile photo</p>
@@ -59,12 +49,9 @@ export const EditProfile = () => {
           <label className="text-xs">Phone Number</label>
           <input type="tel" className="border-b-2 outline-none" />
         </div>
+
         <div className="flex flex-col gap-1">
-          <label className="text-xs">Birthdate</label>
-          <input
-            type="date"
-            className="border-b-2 outline-none w-full bg-none pt-2 rounded-sm pr-2"
-          />
+          <InputDate label="Birthday" onChange={() => {}} />
         </div>
       </div>
     </div>

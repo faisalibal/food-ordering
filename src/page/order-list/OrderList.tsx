@@ -1,19 +1,19 @@
-import { OrderCard } from "../../components/card/order-card/OrderCard";
-import { HeaderNav } from "../../components/header-nav/HeaderNav";
-import { Navbar } from "../../components/navbar/Navbar";
-import { HiOutlineTicket } from "react-icons/hi";
-import "./OrderList.css";
-import { useEffect, useLayoutEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { fetchOrderList } from "../../redux/OrderListSlice";
-import { Link } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import { voucherModalTrue } from "../../redux/VoucherModal";
-import { Vouchers } from "../../components/modal/vouchers/Vouchers";
-import { AddToChart } from "../../components/modal/add-to-chart/AddToChart";
-import { confirmationModalTrue } from "../../redux/confirmationModal";
-import { OrderConfirmation } from "../../components/modal/order-confirmation/OrderConfirmation";
-import noData from "../../assets/images/nodata.png";
+import { OrderCard } from '../../components/card/order-card/OrderCard';
+import { HeaderNav } from '../../components/header-nav/HeaderNav';
+import { Navbar } from '../../components/navbar/Navbar';
+import { HiOutlineTicket } from 'react-icons/hi';
+import './OrderList.css';
+import { useEffect, useLayoutEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { fetchOrderList } from '../../redux/OrderListSlice';
+import { Link } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+import { voucherModalTrue } from '../../redux/VoucherModal';
+import { Vouchers } from '../../components/modal/vouchers/Vouchers';
+import { AddToChart } from '../../components/modal/add-to-chart/AddToChart';
+import { confirmationModalTrue } from '../../redux/confirmationModal';
+import { OrderConfirmation } from '../../components/modal/order-confirmation/OrderConfirmation';
+import noData from '../../assets/images/nodata.png';
 
 export const OrderList = () => {
   useLayoutEffect(() => {
@@ -46,7 +46,7 @@ export const OrderList = () => {
         {confirmationModal && <OrderConfirmation />}
       </AnimatePresence>
       <div className="order-page-container">
-        <HeaderNav />
+        <HeaderNav setSearch={() => {}} />
         <Navbar />
         {orderList.length < 1 ? (
           <div className="order-empty">
@@ -80,7 +80,7 @@ export const OrderList = () => {
             >
               <span>
                 <HiOutlineTicket
-                  style={{ fontSize: "31px", color: "#B5ED89" }}
+                  style={{ fontSize: '31px', color: '#B5ED89' }}
                 />
               </span>
               <span>You've 2 voucher</span>

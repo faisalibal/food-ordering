@@ -1,7 +1,7 @@
-import "./LandingPage.css";
-import logo from "../../assets/images/logo.png";
-import { Link } from "react-router-dom";
-import { useLayoutEffect } from "react";
+import './LandingPage.css';
+import logo from '../../assets/images/logo.png';
+import { Link } from 'react-router-dom';
+import { useLayoutEffect } from 'react';
 
 export const LandingPage = () => {
   useLayoutEffect(() => {
@@ -17,7 +17,7 @@ export const LandingPage = () => {
         <p>Michael Garden App</p>
       </div>
       <div className="lpButtonContainer">
-        <Link to="/home">
+        <Link to="/guest-login">
           <button>I am in restaurant</button>
         </Link>
         <button>Make reservation</button>
