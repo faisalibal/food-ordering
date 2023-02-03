@@ -53,6 +53,7 @@ function App() {
         <Route path="/order-list/side-dish" element={<Allitems />} />
         <Route path="/order-list/snacks" element={<Allitems />} />
         <Route path="/your-favourites" element={<Favourites />} />
+        <Route path="/your-favourites/all-items" element={<Allitems />} />
         <Route path="/reservation" element={<Reservation />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/account/edit-profile" element={<EditProfile />} />

@@ -1,9 +1,9 @@
-import { useEffect } from "react";
-import { FoodDTO } from "../../../DTO/FoodDTO";
-import { addChartModalTrue } from "../../../redux/AddChartModal";
-import { fetchFoodId } from "../../../redux/FoodSlice";
-import { useAppDispatch } from "../../../redux/hook";
-import "./FoodCard.css";
+import { useEffect } from 'react';
+import { FoodDTO } from '../../../DTO/FoodDTO';
+import { addChartModalTrue } from '../../../redux/AddChartModal';
+import { fetchFoodId } from '../../../redux/FoodSlice';
+import { useAppDispatch } from '../../../redux/hook';
+import './FoodCard.css';
 
 type foodType = {
   foodItem: FoodDTO;
@@ -21,28 +21,30 @@ export const FoodCard = ({ foodItem }: foodType) => {
   };
 
   return (
-    <div className="food-card-container">
+    <div
+      className="food-card-container"
+      onClick={foodItem.available ? () => handleModal() : () => {}}
+    >
       <div className="foodcard-image">
         <img
           src={foodItem.image}
           alt="food-image"
-          style={foodItem.available ? {} : { filter: "grayscale(100%" }}
+          style={foodItem.available ? {} : { filter: 'grayscale(100%' }}
         />
       </div>
-      <div style={{ padding: "0px 8px" }}>
+      <div style={{ padding: '0px 8px' }}>
         <p className="food-name">{foodItem.name}</p>
       </div>
       <div
         className="price-container"
-        style={{ padding: "0px 8px", paddingBottom: "8px" }}
+        style={{ padding: '0px 8px', paddingBottom: '8px' }}
       >
         <span className="food-price">
           Rp. {foodItem.price.toLocaleString()}
         </span>
         <span
           className="basket-icon"
-          style={{ background: foodItem.available ? "#F19F5D" : "#DCDBD9" }}
-          onClick={foodItem.available ? () => handleModal() : () => {}}
+          style={{ background: foodItem.available ? '#F19F5D' : '#DCDBD9' }}
         >
           <svg
             width="16"

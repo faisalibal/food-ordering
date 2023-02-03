@@ -94,7 +94,9 @@ export const AccountPage = () => {
             <p>Help</p>
           </span> */}
         </div>
-        <button className="account-signout">Sign out</button>
+        <button className="account-signout" onClick={() => navigate('/')}>
+          Sign out
+        </button>
       </div>
     </>
   );

@@ -106,7 +106,17 @@
       "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg"
     }
   ],
-  "favourite": [],
+  "favourite": [
+    {
+      "id": "5",
+      "kategory": "drinks",
+      "name": "Es Jeruk",
+      "price": 10000,
+      "available": true,
+      "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg",
+      "description": "Es Jeruk dengan racikan spesial ala Michael Garden"
+    }
+  ],
   "reservation": [],
   "time": [
     "11:00",
