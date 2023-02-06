@@ -68,7 +68,7 @@
 
 .home-body {
   display: flex;
-  flex-direction: column;
+  overflow: scroll;
   align-items: center;
   gap: 24px;
   margin-bottom: 12px;

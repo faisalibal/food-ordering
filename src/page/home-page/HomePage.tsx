@@ -1,7 +1,7 @@
 import './HomePage.css';
 import logo from '../../assets/images/logo.png';
 import sphagetti from '../../assets/images/sphagetti.jpg';
-import { BsSearch } from 'react-icons/bs';
+import { BsFillTrashFill, BsSearch } from 'react-icons/bs';
 import { CategoriesCard } from '../../components/card/categories-card/CategoriesCard';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
@@ -16,6 +16,9 @@ import { ModalTable } from '../../components/modal/modal-table/ModalTable';
 import { fetchCategory } from '../../redux/CategorySlice';
 import { Greeting } from '../../helper/Greeting';
 import noResult from '../../assets/images/no-result.png';
+import { BiPhoneCall } from 'react-icons/bi';
+import { ToastContainer, toast, Flip } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const HomePage = () => {
   const { food, loading, error } = useAppSelector((state) => ({
@@ -47,12 +50,67 @@ export const HomePage = () => {
     setSearch(event.target.value);
   };
 
+  const notify = (pesan: string) => {
+    if (pesan === 'success') {
+      toast.success('Food added to your favourite', {
+        position: 'top-center',
+        autoClose: 800,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        closeButton: false,
+      });
+    }
+    if (pesan === 'remove') {
+      toast.warning('Food removed from your favourite', {
+        position: 'top-center',
+        autoClose: 800,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        closeButton: false,
+        icon: (
+          <span className="bg-red-400 aspect-square rounded-full p-1 grid place-items-center">
+            <BsFillTrashFill className="text-white text-sm " />
+          </span>
+        ),
+      });
+    }
+  };
+
+  const waiters = () => {
+    toast.success('Okayy.. Waiters will come', {
+      position: 'top-center',
+      autoClose: 800,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      closeButton: true,
+    });
+  };
+
   return (
     <>
-      <AnimatePresence>{addChartModal && <AddToChart />}</AnimatePresence>
+      <AnimatePresence>
+        {addChartModal && <AddToChart notify={notify} />}
+      </AnimatePresence>
       <AnimatePresence>{modalTable && <ModalTable />}</AnimatePresence>
-      <div className="home-container">
+      <div className="home-container mb-4">
         <Navbar />
+        <ToastContainer
+          toastStyle={{
+            borderRadius: '12px',
+            width: '300px',
+            fontSize: '16px',
+            fontWeight: 500,
+          }}
+          className="w-full flex flex-col items-center mt-5 gap-2"
+          transition={Flip}
+        />
         <div className="home-header">
           <div className="header-left">
             <div className="home-logo">
@@ -60,6 +118,13 @@ export const HomePage = () => {
             </div>
             <p>Hi, John Doe</p>
             <p>{Greeting()}</p>
+            <button
+              className="bg-primary text-white rounded-md text-sm py-1 px-2 shadow-md active:opacity-[0.8] flex items-center gap-2 w-fit"
+              onClick={waiters}
+            >
+              <BiPhoneCall />
+              Call Waiters
+            </button>
           </div>
           <div className="header-right">
             <p>Table No.</p>
@@ -109,9 +174,16 @@ export const HomePage = () => {
         ) : (
           <div className="flex flex-col gap-3">
             <div className="home-body my-3">
-              <div className="food-image">
-                <img src={sphagetti} alt="food-image" />
-              </div>
+              <img
+                src={sphagetti}
+                alt="food-image"
+                className="w-[500px] h-[180px] object-cover rounded-xl"
+              />
+              <img
+                src={sphagetti}
+                alt="food-image"
+                className="w-[500px] h-[180px] object-cover rounded-xl"
+              />
             </div>
             <div className="home-categories">
               <div className="home-cat-title">

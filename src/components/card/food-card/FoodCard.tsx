@@ -42,7 +42,7 @@ export const FoodCard = ({ foodItem }: foodType) => {
         <span className="food-price">
           Rp. {foodItem.price.toLocaleString()}
         </span>
-        <span
+        {/* <span
           className="basket-icon"
           style={{ background: foodItem.available ? '#F19F5D' : '#DCDBD9' }}
         >
@@ -58,7 +58,7 @@ export const FoodCard = ({ foodItem }: foodType) => {
               fill="#FFFCFA"
             />
           </svg>
-        </span>
+        </span> */}
       </div>
     </div>
   );

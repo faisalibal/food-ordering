@@ -50,10 +50,16 @@ export const Allitems = () => {
     }
   }, []);
 
+  function notify(): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <>
-      <AnimatePresence>{addChartModal && <AddToChart />}</AnimatePresence>
-      <div className="allitems-container">
+      <AnimatePresence>
+        {addChartModal && <AddToChart notify={notify} />}
+      </AnimatePresence>
+      <div className="allitems-container" style={{ marginBottom: '100px' }}>
         <div className="header-nav-container">
           <span className="header-back" onClick={() => navigate(`/${path}`)}>
             <IoIosArrowBack />
@@ -115,7 +121,7 @@ export const Allitems = () => {
               ))}
           </div>
         ) : (
-          <div className="all-items-card-container">
+          <div className="all-items-card-container ">
             {food
               .filter((item) => item.kategory === pathName)
               .filter((item) => item.name.toLocaleLowerCase().includes(search))

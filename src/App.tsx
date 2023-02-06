@@ -19,6 +19,7 @@ import {
 import { HomePage } from './page/home-page/HomePage';
 import { LandingPage } from './page/landing-page/LandingPage';
 import { OrderList } from './page/order-list/OrderList';
+import { PopularPage } from './page/popular-page/popular-page';
 import { Reservation } from './page/reservation/Reservation';
 import { fetchFavourite } from './redux/favouriteSlice';
 import { useAppDispatch } from './redux/hook';
@@ -45,7 +46,7 @@ function App() {
         <Route path="/home/drinks" element={<Allitems />} />
         <Route path="/home/side-dish" element={<Allitems />} />
         <Route path="/home/snacks" element={<Allitems />} />
-        <Route path="/home/popular-now" element={<Allitems />} />
+        <Route path="/home/popular-now" element={<PopularPage />} />
         <Route path="/order-list" element={<OrderList />} />
         <Route path="/order-list/all-items" element={<Allitems />} />
         <Route path="/order-list/main-course" element={<Allitems />} />

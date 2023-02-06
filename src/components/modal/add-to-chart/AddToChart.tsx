@@ -1,29 +1,33 @@
-import "./AddToChart.css";
-import { BsFillClockFill, BsFillHeartFill } from "react-icons/bs";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { addChartModalFalse } from "../../../redux/AddChartModal";
-import { motion } from "framer-motion";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { OrderListDTO } from "../../../DTO/OrderListDTO";
+import './AddToChart.css';
+import { BsFillClockFill, BsFillHeartFill } from 'react-icons/bs';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { addChartModalFalse } from '../../../redux/AddChartModal';
+import { motion } from 'framer-motion';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { OrderListDTO } from '../../../DTO/OrderListDTO';
 import {
   fetchOrderList,
   postOrderList,
   updateOrderList,
-} from "../../../redux/OrderListSlice";
-import useOnClickOutside from "../../../hook/useOnCLickOutside";
-import chef from "../../../assets/icons/chef.png";
-import cabai from "../../../assets/icons/cabai.png";
+} from '../../../redux/OrderListSlice';
+import useOnClickOutside from '../../../hook/useOnCLickOutside';
+import chef from '../../../assets/icons/chef.png';
+import cabai from '../../../assets/icons/cabai.png';
 import {
   deleteFavourite,
   fetchFavourite,
   postFavourite,
-} from "../../../redux/favouriteSlice";
-import { useLocation } from "react-router-dom";
+} from '../../../redux/favouriteSlice';
+import { useLocation } from 'react-router-dom';
 
-export const AddToChart = () => {
+type addToChart = {
+  notify: (pesan: string) => void;
+};
+
+export const AddToChart = ({ notify }: addToChart) => {
   const location = useLocation();
-  const path = location.pathname.split("/")[1];
+  const path = location.pathname.split('/')[1];
 
   //======================Start Dispatch Redux=========================//
   const dispatch = useAppDispatch();
@@ -49,7 +53,7 @@ export const AddToChart = () => {
     name: foodId?.name,
     price: foodId?.price,
     quantity: counter,
-    note: "",
+    note: '',
     image: foodId?.image,
   });
   //=====================End State hook=============================//
@@ -80,10 +84,10 @@ export const AddToChart = () => {
   };
 
   const handleCounter = (action: string) => {
-    if (action === "-") {
+    if (action === '-') {
       setCounter(counter - 1 != 0 ? counter - 1 : 1);
     }
-    if (action === "+") {
+    if (action === '+') {
       setCounter(counter + 1);
     }
   };
@@ -91,13 +95,18 @@ export const AddToChart = () => {
   const handleAddFavourite = () => {
     if (availableFavourite) {
       const handleFav = async () => {
-        await dispatch(deleteFavourite(foodId.id));
-        await dispatch(fetchFavourite());
-        setAvailableFavourite(false);
-        if (path === "your-favourites") {
-          setTimeout(() => {
-            dispatch(addChartModalFalse());
-          }, 100);
+        try {
+          await dispatch(deleteFavourite(foodId.id));
+          await dispatch(fetchFavourite());
+          setAvailableFavourite(false);
+          if (path === 'your-favourites') {
+            setTimeout(() => {
+              dispatch(addChartModalFalse());
+            }, 100);
+          }
+          notify('remove');
+        } catch (error) {
+          console.log(error);
         }
       };
       handleFav();
@@ -107,6 +116,7 @@ export const AddToChart = () => {
           await dispatch(postFavourite(foodId));
           await dispatch(fetchFavourite());
           setAvailableFavourite(true);
+          notify('success');
         } catch (error) {
           console.log(error);
         }
@@ -131,7 +141,7 @@ export const AddToChart = () => {
       name: foodId?.name,
       price: foodId?.price,
       quantity: counter,
-      note: "",
+      note: '',
       image: foodId?.image,
     });
     const viewOptions = () => {
@@ -183,13 +193,13 @@ export const AddToChart = () => {
     >
       <motion.div
         initial={{
-          transform: "translateY(100%)",
+          transform: 'translateY(100%)',
         }}
         animate={{
-          transform: "translateY(0%)",
+          transform: 'translateY(0%)',
         }}
         exit={{
-          transform: "translateY(100%)",
+          transform: 'translateY(100%)',
         }}
         className="modal-chart-container"
         ref={bodyModal}
@@ -200,30 +210,30 @@ export const AddToChart = () => {
         ></div>
         <div
           style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "28px",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '28px',
           }}
         >
           <div
             style={{
-              position: "relative",
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-              width: "100%",
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              flexDirection: 'column',
+              width: '100%',
             }}
           >
             <div
-              style={{ position: "absolute", right: "0px" }}
+              style={{ position: 'absolute', right: '0px' }}
               onClick={() => handleAddFavourite()}
             >
               <BsFillHeartFill
                 style={
                   availableFavourite
-                    ? { color: "#F19F5D", fontSize: "36px" }
-                    : { color: "#fffcfa", fontSize: "36px" }
+                    ? { color: '#F19F5D', fontSize: '36px' }
+                    : { color: '#fffcfa', fontSize: '36px' }
                 }
               />
             </div>
@@ -231,21 +241,21 @@ export const AddToChart = () => {
               <img src={foodId.image} alt="chart-image" />
             </div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
             <div className="modal-chart-detail">
               <div
-                style={{ display: "flex", flexDirection: "column", gap: "4px" }}
+                style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}
               >
                 <p className="modal-chart-name">{foodId.name}</p>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "12px" }}
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
                 >
                   <div
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px",
-                      marginTop: "-3px",
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      marginTop: '-3px',
                     }}
                   >
                     <img src={chef} alt="" />
@@ -253,21 +263,21 @@ export const AddToChart = () => {
                   </div>
                   <div
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "4px",
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px',
                     }}
                   >
                     <BsFillClockFill
-                      style={{ color: "#80D33E", fontSize: "16px" }}
+                      style={{ color: '#80D33E', fontSize: '16px' }}
                     />
                     <p
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        fontWeight: "700",
-                        fontSize: "12px",
-                        color: "white",
+                        display: 'flex',
+                        alignItems: 'center',
+                        fontWeight: '700',
+                        fontSize: '12px',
+                        color: 'white',
                       }}
                     >
                       4 - 10 Min
@@ -287,24 +297,24 @@ export const AddToChart = () => {
               placeholder="Add Notes.."
               id="note"
               onChange={handleTextAreaChange}
-              defaultValue={availableOrder ? itemChart.note : ""}
+              defaultValue={availableOrder ? itemChart.note : ''}
             ></textarea>
           </div>
           <div className="modal-chart-button">
             <div className="counter-button">
-              <button style={counter === 1 ? { background: "#dddddd" } : {}}>
-                <AiOutlineMinus onClick={() => handleCounter("-")} />
+              <button style={counter === 1 ? { background: '#dddddd' } : {}}>
+                <AiOutlineMinus onClick={() => handleCounter('-')} />
               </button>
               <p>{counter}</p>
               <button>
-                <AiOutlinePlus onClick={() => handleCounter("+")} />
+                <AiOutlinePlus onClick={() => handleCounter('+')} />
               </button>
             </div>
             <button
               className="modal-chart-addtolist"
               onClick={() => handleDispatchAddOrder()}
             >
-              {availableOrder ? "Update Order" : " Add to Order List"}
+              {availableOrder ? 'Update Order' : ' Add to Order List'}
             </button>
           </div>
         </div>

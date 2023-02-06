@@ -62,6 +62,15 @@
       "available": true,
       "description": "Banchan dengan racikan spesial ala Michael Garden",
       "image": "https://keluyuran.com/wp-content/uploads/2021/07/Pajeon_.webp"
+    },
+    {
+      "id": "8",
+      "kategory": "snacks",
+      "name": "French fries",
+      "price": 25000,
+      "available": true,
+      "description": "Kentang goreng dengan racikan spesial ala Michael Garden",
+      "image": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,q_auto:best,w_640/v1624692612/sgcoj1nuliwli7lk0yic.png"
     }
   ],
   "category": [
@@ -101,22 +110,12 @@
       "kategory": "drinks",
       "name": "Es Jeruk",
       "price": 10000,
-      "quantity": 1,
+      "quantity": 4,
       "note": "",
       "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg"
     }
   ],
-  "favourite": [
-    {
-      "id": "5",
-      "kategory": "drinks",
-      "name": "Es Jeruk",
-      "price": 10000,
-      "available": true,
-      "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg",
-      "description": "Es Jeruk dengan racikan spesial ala Michael Garden"
-    }
-  ],
+  "favourite": [],
   "reservation": [],
   "time": [
     "11:00",
