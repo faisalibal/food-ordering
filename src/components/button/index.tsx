@@ -17,3 +17,30 @@ export const PrimaryButton = ({ label, onClick, onSubmit, style }: button) => {
     </button>
   );
 };
+
+type statusButton = {
+  status: string;
+};
+
+export const StatusOrderBUtton = ({ status }: statusButton) => {
+  return (
+    <button
+      className="text-white py-1 px-2 rounded-lg text-[11px] shadow-md flex capitalize"
+      style={{
+        background: `${
+          status === 'on payment'
+            ? '#e96969'
+            : status === 'cooking'
+            ? '#ceb548'
+            : status === 'being served'
+            ? '#65b2df'
+            : status === 'served'
+            ? '#1fff50'
+            : ''
+        }`,
+      }}
+    >
+      {status}
+    </button>
+  );
+};

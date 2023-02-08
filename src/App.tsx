@@ -4,6 +4,7 @@ import AccountInfo from './page/account-info/account-info';
 import { AccountPage } from './page/account-page/AccountPage';
 import { AddReservationPage } from './page/add-reservation-page/AddReservationPage';
 import { Allitems } from './page/all-items/Allitems';
+import { ConfirmOrder } from './page/confirm-order/confirm-order';
 import { EditProfile } from './page/edit-profile/EditProfile';
 import { Favourites } from './page/favourites-page/Favourites';
 import {
@@ -19,6 +20,7 @@ import {
 import { HomePage } from './page/home-page/HomePage';
 import { LandingPage } from './page/landing-page/LandingPage';
 import { OrderList } from './page/order-list/OrderList';
+import { PaymentReceipt } from './page/payment-receipt/payment-receipt';
 import { PopularPage } from './page/popular-page/popular-page';
 import { Reservation } from './page/reservation/Reservation';
 import { fetchFavourite } from './redux/favouriteSlice';
@@ -53,6 +55,11 @@ function App() {
         <Route path="/order-list/drinks" element={<Allitems />} />
         <Route path="/order-list/side-dish" element={<Allitems />} />
         <Route path="/order-list/snacks" element={<Allitems />} />
+        <Route path="/order-list/confirm-order" element={<ConfirmOrder />} />
+        <Route
+          path="/order-list/confirm-order/payment-receipt"
+          element={<PaymentReceipt />}
+        />
         <Route path="/your-favourites" element={<Favourites />} />
         <Route path="/your-favourites/all-items" element={<Allitems />} />
         <Route path="/reservation" element={<Reservation />} />

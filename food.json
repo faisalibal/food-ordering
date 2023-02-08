@@ -106,16 +106,26 @@
       "image": "https://img.kurio.network/FgAKw0h9_V_LlG8xU3xojz5Vsf0=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/10/10/a7e9eaa0-1c22-42b0-a11f-0a5ad1d30126.jpeg"
     },
     {
-      "id": "5",
-      "kategory": "drinks",
-      "name": "Es Jeruk",
-      "price": 10000,
-      "quantity": 4,
+      "id": "3",
+      "kategory": "main-course",
+      "name": "Nasi goreng kampung",
+      "price": 22000,
+      "quantity": 1,
       "note": "",
-      "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg"
+      "image": "https://www.masakapahariini.com/wp-content/uploads/2019/06/nasi-goreng-seafood-780x440.jpg"
     }
   ],
-  "favourite": [],
+  "favourite": [
+    {
+      "id": "1",
+      "kategory": "main-course",
+      "name": "Nasi goreng kecombrang",
+      "price": 23000,
+      "available": true,
+      "description": "Nasi goreng dengan racikan spesial ala Michael Garden",
+      "image": "https://img.kurio.network/FgAKw0h9_V_LlG8xU3xojz5Vsf0=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/10/10/a7e9eaa0-1c22-42b0-a11f-0a5ad1d30126.jpeg"
+    }
+  ],
   "reservation": [],
   "time": [
     "11:00",
@@ -130,7 +140,7 @@
     "20:00",
     "21:00"
   ],
-  "running-orders": [
+  "customer-orders": [
     {
       "id": "a1",
       "detail-order": [

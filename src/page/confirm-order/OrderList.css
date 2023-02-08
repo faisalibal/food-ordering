@@ -1,0 +1,235 @@
+.order-page-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 20px;
+  gap: 12px;
+}
+
+.order-cart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-page-addmore {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-top: 12px;
+  min-height: 63px;
+  background-color: var(--font-primary);
+  box-shadow: 1px 2px 13px rgba(0, 0, 0, 0.11);
+  border-radius: 12px;
+}
+
+.order-page-addmore span {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-page-addmore span p {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.order-page-addmore span small {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.order-page-addmore button {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 6px;
+  border: 1px solid #014a40;
+  color: #014a40;
+  padding: 8px;
+  border-radius: 20px;
+}
+
+.order-page-voucher {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  min-height: 63px;
+  background-color: var(--font-primary);
+  box-shadow: 1px 2px 13px rgba(0, 0, 0, 0.11);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.order-page-voucher span:nth-child(2) {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 24px;
+}
+
+.payment-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.payment-summary div h4 {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.payment-summary-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid #0f1f0d;
+  padding: 12px;
+  width: calc(100vw - 80px);
+  border-radius: 12px;
+}
+
+.summary-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  padding-top: 0px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed #0f1f0d;
+}
+
+.subtotal-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100vw-80px);
+}
+
+.subtotal-summary span {
+  display: flex;
+  flex-direction: column;
+}
+
+.subtotal-summary span p {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 13px;
+}
+
+.subtotal-summary span small {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 13px;
+  color: #a3a19e;
+  font-style: italic;
+}
+
+.summary-price {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 13px;
+}
+
+.summary-taxes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.summary-taxes p:nth-child(1) {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 13px;
+}
+
+.summary-taxes p:nth-child(2) {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 13px;
+}
+
+.summary-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 8px;
+}
+
+.summary-total span {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-total p {
+  font-weight: 700;
+  font-size: 12px;
+  color: #0f1f0d;
+}
+
+.summary-total span small {
+  font-style: italic;
+  font-weight: 400;
+  font-size: 12px;
+  color: #a3a19e;
+}
+
+.summary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f19f5d;
+  border-radius: 68px;
+  padding: 6px;
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--font-primary);
+}
+
+.order-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 70vh;
+}
+
+.order-empty p {
+  text-align: center;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 13px;
+  color: #a3a19e;
+}
+
+.order-empty-illustration {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.order-empty-illustration img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.order-empty button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f19f5d;
+  border-radius: 68px;
+  padding: 6px 12px;
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--font-primary);
+}

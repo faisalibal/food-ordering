@@ -10,6 +10,9 @@ import { AddToChart } from '../../components/modal/add-to-chart/AddToChart';
 import { fetchFavourite } from '../../redux/favouriteSlice';
 import favorite from '../../assets/images/favorite.png';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast, Flip } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { BsFillTrashFill } from 'react-icons/bs';
 
 export const Favourites = () => {
   const { favourite, loading, error } = useAppSelector((state) => ({
@@ -30,6 +33,38 @@ export const Favourites = () => {
   }, []);
 
   useLayoutEffect(() => {});
+
+  // const notify = (pesan: string) => {
+  //   if (pesan === 'success') {
+  //     toast.success('Food added to your favourite', {
+  //       position: 'top-center',
+  //       autoClose: 800,
+  //       hideProgressBar: true,
+  //       closeOnClick: true,
+  //       pauseOnHover: false,
+  //       draggable: false,
+  //       progress: undefined,
+  //       closeButton: false,
+  //     });
+  //   }
+  //   if (pesan === 'remove') {
+  //     toast.warning('Food removed from your favourite', {
+  //       position: 'top-center',
+  //       autoClose: 800,
+  //       hideProgressBar: true,
+  //       closeOnClick: true,
+  //       pauseOnHover: false,
+  //       draggable: false,
+  //       progress: undefined,
+  //       closeButton: false,
+  //       icon: (
+  //         <span className="bg-red-400 aspect-square rounded-full p-1 grid place-items-center">
+  //           <BsFillTrashFill className="text-white text-sm " />
+  //         </span>
+  //       ),
+  //     });
+  //   }
+  // };
 
   return (
     <>

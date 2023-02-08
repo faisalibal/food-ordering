@@ -14,6 +14,7 @@ export const HeaderNav = ({ setSearch }: search) => {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname.split('/')[1];
+  const pathTwo = location.pathname.split('/')[2];
   const { searchActive } = useAppSelector((state) => ({
     ...state.searchInput,
   }));
@@ -37,7 +38,12 @@ export const HeaderNav = ({ setSearch }: search) => {
         className="header-nav-name w-full"
         style={searchActive ? { display: 'none' } : {}}
       >
-        <p className="w-full text-center">{path.split('-').join(' ')}</p>
+        {' '}
+        {path === 'order-list' && pathTwo === 'confirm-order' ? (
+          <p className="w-full text-center">Your order</p>
+        ) : (
+          <p className="w-full text-center">{path.split('-').join(' ')}</p>
+        )}
       </span>
       <span className="absolute top-1 right-0">
         {path === 'reservation' ? (

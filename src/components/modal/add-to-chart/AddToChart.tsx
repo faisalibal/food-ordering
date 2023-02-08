@@ -1,5 +1,9 @@
 import './AddToChart.css';
-import { BsFillClockFill, BsFillHeartFill } from 'react-icons/bs';
+import {
+  BsFillClockFill,
+  BsFillHeartFill,
+  BsFillTrashFill,
+} from 'react-icons/bs';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { addChartModalFalse } from '../../../redux/AddChartModal';
@@ -20,14 +24,17 @@ import {
   postFavourite,
 } from '../../../redux/favouriteSlice';
 import { useLocation } from 'react-router-dom';
+import { ToastContainer, toast, Flip } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 type addToChart = {
   notify: (pesan: string) => void;
 };
 
-export const AddToChart = ({ notify }: addToChart) => {
+export const AddToChart = () => {
   const location = useLocation();
   const path = location.pathname.split('/')[1];
+  const pathTwo = location.pathname.split('/')[2];
 
   //======================Start Dispatch Redux=========================//
   const dispatch = useAppDispatch();
@@ -59,6 +66,39 @@ export const AddToChart = ({ notify }: addToChart) => {
   //=====================End State hook=============================//
 
   //====================Start Handle Function=======================//
+
+  const notify = (pesan: string) => {
+    if (pesan === 'success') {
+      toast.success('Food added to your favourite', {
+        position: 'top-center',
+        autoClose: 800,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        closeButton: false,
+      });
+    }
+    if (pesan === 'remove') {
+      toast.warning('Food removed from your favourite', {
+        position: 'top-center',
+        autoClose: 800,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+        closeButton: false,
+        icon: (
+          <span className="bg-red-400 aspect-square rounded-full p-1 grid place-items-center">
+            <BsFillTrashFill className="text-white text-sm " />
+          </span>
+        ),
+      });
+    }
+  };
+
   const handleDispatchAddOrder = () => {
     const addOrder = async () => {
       if (availableOrder) {
@@ -99,7 +139,7 @@ export const AddToChart = ({ notify }: addToChart) => {
           await dispatch(deleteFavourite(foodId.id));
           await dispatch(fetchFavourite());
           setAvailableFavourite(false);
-          if (path === 'your-favourites') {
+          if (path === 'your-favourites' && !pathTwo) {
             setTimeout(() => {
               dispatch(addChartModalFalse());
             }, 100);
@@ -172,153 +212,175 @@ export const AddToChart = ({ notify }: addToChart) => {
   useOnClickOutside(bodyModal, () => dispatch(addChartModalFalse()));
 
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-        transition: {
-          duration: 0.1,
-        },
-      }}
-      exit={{
-        opacity: 0,
-        transition: {
-          delay: 0.3,
-          duration: 0.1,
-        },
-      }}
-      className="modal-chart"
-    >
+    <>
+      <ToastContainer
+        toastStyle={{
+          borderRadius: '12px',
+          width: '300px',
+          fontSize: '16px',
+          fontWeight: 500,
+        }}
+        className="w-full flex flex-col items-center mt-5 gap-2"
+        transition={Flip}
+      />
       <motion.div
         initial={{
-          transform: 'translateY(100%)',
+          opacity: 0,
         }}
         animate={{
-          transform: 'translateY(0%)',
+          opacity: 1,
+          transition: {
+            duration: 0.1,
+          },
         }}
         exit={{
-          transform: 'translateY(100%)',
+          opacity: 0,
+          transition: {
+            delay: 0.3,
+            duration: 0.1,
+          },
         }}
-        className="modal-chart-container"
-        ref={bodyModal}
+        className="modal-chart"
       >
-        <div
-          className="modal-bar"
-          onClick={() => dispatch(addChartModalFalse())}
-        ></div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '28px',
+        <motion.div
+          initial={{
+            transform: 'translateY(100%)',
           }}
+          animate={{
+            transform: 'translateY(0%)',
+          }}
+          exit={{
+            transform: 'translateY(100%)',
+          }}
+          className="modal-chart-container"
+          ref={bodyModal}
         >
           <div
+            className="modal-bar"
+            onClick={() => dispatch(addChartModalFalse())}
+          ></div>
+          <div
             style={{
-              position: 'relative',
               display: 'flex',
-              alignItems: 'center',
               flexDirection: 'column',
-              width: '100%',
+              alignItems: 'center',
+              gap: '28px',
             }}
           >
             <div
-              style={{ position: 'absolute', right: '0px' }}
-              onClick={() => handleAddFavourite()}
+              style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                flexDirection: 'column',
+                width: '100%',
+              }}
             >
-              <BsFillHeartFill
-                style={
-                  availableFavourite
-                    ? { color: '#F19F5D', fontSize: '36px' }
-                    : { color: '#fffcfa', fontSize: '36px' }
-                }
-              />
-            </div>
-            <div className="modal-chart-image">
-              <img src={foodId.image} alt="chart-image" />
-            </div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            <div className="modal-chart-detail">
               <div
-                style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}
+                style={{ position: 'absolute', right: '0px' }}
+                onClick={() => handleAddFavourite()}
               >
-                <p className="modal-chart-name">{foodId.name}</p>
+                <BsFillHeartFill
+                  style={
+                    availableFavourite
+                      ? { color: '#F19F5D', fontSize: '36px' }
+                      : { color: '#fffcfa', fontSize: '36px' }
+                  }
+                />
+              </div>
+              <div className="modal-chart-image">
+                <img src={foodId.image} alt="chart-image" />
+              </div>
+            </div>
+            <div
+              style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}
+            >
+              <div className="modal-chart-detail">
                 <div
-                  style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                  }}
                 >
+                  <p className="modal-chart-name">{foodId.name}</p>
                   <div
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '4px',
-                      marginTop: '-3px',
+                      gap: '12px',
                     }}
                   >
-                    <img src={chef} alt="" />
-                    <img src={cabai} alt="" />
-                  </div>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                    }}
-                  >
-                    <BsFillClockFill
-                      style={{ color: '#80D33E', fontSize: '16px' }}
-                    />
-                    <p
+                    <div
                       style={{
                         display: 'flex',
                         alignItems: 'center',
-                        fontWeight: '700',
-                        fontSize: '12px',
-                        color: 'white',
+                        gap: '4px',
+                        marginTop: '-3px',
                       }}
                     >
-                      4 - 10 Min
-                    </p>
+                      <img src={chef} alt="" />
+                      <img src={cabai} alt="" />
+                    </div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                      }}
+                    >
+                      <BsFillClockFill
+                        style={{ color: '#80D33E', fontSize: '16px' }}
+                      />
+                      <p
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          fontWeight: '700',
+                          fontSize: '12px',
+                          color: 'white',
+                        }}
+                      >
+                        4 - 10 Min
+                      </p>
+                    </div>
                   </div>
                 </div>
+                <div>
+                  <p className="modal-chart-price">
+                    Rp. {foodId.price.toLocaleString()}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="modal-chart-price">
-                  Rp. {foodId.price.toLocaleString()}
-                </p>
+              <p className="modal-chart-description">{foodId.description}</p>
+              <textarea
+                className="modal-chart-note"
+                placeholder="Add Notes.."
+                id="note"
+                onChange={handleTextAreaChange}
+                defaultValue={availableOrder ? itemChart.note : ''}
+              ></textarea>
+            </div>
+            <div className="modal-chart-button">
+              <div className="counter-button">
+                <button style={counter === 1 ? { background: '#dddddd' } : {}}>
+                  <AiOutlineMinus onClick={() => handleCounter('-')} />
+                </button>
+                <p>{counter}</p>
+                <button>
+                  <AiOutlinePlus onClick={() => handleCounter('+')} />
+                </button>
               </div>
-            </div>
-            <p className="modal-chart-description">{foodId.description}</p>
-            <textarea
-              className="modal-chart-note"
-              placeholder="Add Notes.."
-              id="note"
-              onChange={handleTextAreaChange}
-              defaultValue={availableOrder ? itemChart.note : ''}
-            ></textarea>
-          </div>
-          <div className="modal-chart-button">
-            <div className="counter-button">
-              <button style={counter === 1 ? { background: '#dddddd' } : {}}>
-                <AiOutlineMinus onClick={() => handleCounter('-')} />
-              </button>
-              <p>{counter}</p>
-              <button>
-                <AiOutlinePlus onClick={() => handleCounter('+')} />
+              <button
+                className="modal-chart-addtolist"
+                onClick={() => handleDispatchAddOrder()}
+              >
+                {availableOrder ? 'Update Order' : ' Add to Order List'}
               </button>
             </div>
-            <button
-              className="modal-chart-addtolist"
-              onClick={() => handleDispatchAddOrder()}
-            >
-              {availableOrder ? 'Update Order' : ' Add to Order List'}
-            </button>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </>
   );
 };

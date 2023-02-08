@@ -50,38 +50,6 @@ export const HomePage = () => {
     setSearch(event.target.value);
   };
 
-  const notify = (pesan: string) => {
-    if (pesan === 'success') {
-      toast.success('Food added to your favourite', {
-        position: 'top-center',
-        autoClose: 800,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        closeButton: false,
-      });
-    }
-    if (pesan === 'remove') {
-      toast.warning('Food removed from your favourite', {
-        position: 'top-center',
-        autoClose: 800,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        closeButton: false,
-        icon: (
-          <span className="bg-red-400 aspect-square rounded-full p-1 grid place-items-center">
-            <BsFillTrashFill className="text-white text-sm " />
-          </span>
-        ),
-      });
-    }
-  };
-
   const waiters = () => {
     toast.success('Okayy.. Waiters will come', {
       position: 'top-center',
@@ -95,9 +63,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <AnimatePresence>
-        {addChartModal && <AddToChart notify={notify} />}
-      </AnimatePresence>
+      <AnimatePresence>{addChartModal && <AddToChart />}</AnimatePresence>
       <AnimatePresence>{modalTable && <ModalTable />}</AnimatePresence>
       <div className="home-container mb-4">
         <Navbar />
