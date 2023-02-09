@@ -7,15 +7,17 @@ import useOnClickOutside from '../../../hook/useOnCLickOutside';
 import { useRef } from 'react';
 
 export const Vouchers = () => {
-  const { voucherModal } = useAppSelector((state) => ({
-    ...state.voucherModal,
-  }));
   const voucherModalFalse = useRef(null);
   const dispatch = useAppDispatch();
 
   useOnClickOutside(voucherModalFalse, () =>
     dispatch(voucherModalModalFalse())
   );
+
+  const { voucher } = useAppSelector((state) => ({
+    ...state.voucher,
+  }));
+
   return (
     <motion.div
       initial={{
@@ -56,12 +58,9 @@ export const Vouchers = () => {
         <h3>Available offers</h3>
         <input type="text" placeholder="Enter promo code here" />
         <div className="voucher-card-box">
-          <VouchersCard />
-          <VouchersCard />
-          <VouchersCard />
-          <VouchersCard />
-          <VouchersCard />
-          <VouchersCard />
+          {voucher?.map((item, index) => (
+            <VouchersCard voucher={item} key={index} />
+          ))}
         </div>
       </motion.div>
     </motion.div>

@@ -110,7 +110,7 @@
       "kategory": "main-course",
       "name": "Nasi goreng kampung",
       "price": 22000,
-      "quantity": 1,
+      "quantity": 2,
       "note": "",
       "image": "https://www.masakapahariini.com/wp-content/uploads/2019/06/nasi-goreng-seafood-780x440.jpg"
     }
@@ -167,12 +167,7 @@
       ]
     }
   ],
-  "status": [
-    "waiting cook",
-    "On cook",
-    "Being delivered",
-    "Already Delivered"
-  ],
+  "status": ["waiting cook", "On cook", "Being delivered", "Already Delivered"],
   "users": [
     {
       "name": "Faisal Iqbal",
@@ -191,6 +186,26 @@
       "avatar": "https://www.science.org/do/10.1126/science.ade7005/abs/_20220901_on_down_syndrome_adult.jpg",
       "birthday": "21-09-1997",
       "password": "12345678"
+    }
+  ],
+  "vouchers": [
+    {
+      "id": "1",
+      "name": "birthday10%",
+      "value": 10,
+      "valid": "03-03-2023"
+    },
+    {
+      "id": "2",
+      "name": "birthday20%",
+      "value": 20,
+      "valid": "03-06-2023"
+    },
+    {
+      "id": "3",
+      "name": "birthday30%",
+      "value": 30,
+      "valid": "03-10-2023"
     }
   ]
 }

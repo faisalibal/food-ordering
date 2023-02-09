@@ -14,28 +14,45 @@ import { AddToChart } from '../../components/modal/add-to-chart/AddToChart';
 import { confirmationModalTrue } from '../../redux/confirmationModal';
 import { OrderConfirmation } from '../../components/modal/order-confirmation/OrderConfirmation';
 import noData from '../../assets/images/nodata.png';
+import { fetchVoucher } from '../../redux/voucher-slice';
 
 export const OrderList = () => {
   useLayoutEffect(() => {
     window.scrollTo({ top: 0 });
   }, []);
   const dispatch = useAppDispatch();
-  const { orderList, subTotal, totalItem, taxes, total, loading, error } =
-    useAppSelector((state) => ({
-      ...state.orderList,
-    }));
+  const {
+    orderList,
+    subTotal,
+    totalItem,
+    taxes,
+    total,
+    voucherValue,
+    loading,
+    error,
+  } = useAppSelector((state) => ({
+    ...state.orderList,
+  }));
+  console.log(voucherValue);
   const { addChartModal } = useAppSelector((state) => ({
     ...state.addModalChart,
   }));
   const { voucherModal } = useAppSelector((state) => ({
     ...state.voucherModal,
   }));
+  const { voucher, voucherWantUse } = useAppSelector((state) => ({
+    ...state.voucher,
+  }));
   const { confirmationModal } = useAppSelector((state) => ({
     ...state.confirmation,
   }));
 
+  console.log(voucher);
+  console.log(voucherWantUse);
+
   useEffect(() => {
     dispatch(fetchOrderList());
+    dispatch(fetchVoucher());
   }, []);
 
   return (
@@ -97,6 +114,12 @@ export const OrderList = () => {
                       <small>{totalItem} items</small>
                     </span>
                     <span className="summary-price">Rp. {subTotal}</span>
+                  </div>
+                  <div className="subtotal-summary">
+                    <span>
+                      <p>Voucher</p>
+                    </span>
+                    <span className="summary-price">Rp. {voucherValue}</span>
                   </div>
                   <div className="summary-taxes">
                     <p>Taxes</p>

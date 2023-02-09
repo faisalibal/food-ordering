@@ -1,15 +1,16 @@
-import { configureStore } from "@reduxjs/toolkit";
-import foodReducer from "./FoodSlice";
-import orderListReducer from "./OrderListSlice";
-import addModalChartReducer from "./AddChartModal";
-import voucherModalReducer from "./VoucherModal";
-import favouriteReducer from "./favouriteSlice";
-import confirmationReducer from "./confirmationModal";
-import bookingConfirmationReducer from "./bookingConfirmation";
-import reservationReducer from "./reservationSlice";
-import modalTableReducer from "./ModalTable";
-import categoryReducer from "./CategorySlice";
-import searchReducer from "./SearchInput";
+import { configureStore } from '@reduxjs/toolkit';
+import foodReducer from './FoodSlice';
+import orderListReducer from './OrderListSlice';
+import addModalChartReducer from './AddChartModal';
+import voucherModalReducer from './VoucherModal';
+import favouriteReducer from './favouriteSlice';
+import confirmationReducer from './confirmationModal';
+import bookingConfirmationReducer from './bookingConfirmation';
+import reservationReducer from './reservationSlice';
+import modalTableReducer from './ModalTable';
+import categoryReducer from './CategorySlice';
+import searchReducer from './SearchInput';
+import voucherReducer from './voucher-slice';
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     modalTable: modalTableReducer,
     category: categoryReducer,
     searchInput: searchReducer,
+    voucher: voucherReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
