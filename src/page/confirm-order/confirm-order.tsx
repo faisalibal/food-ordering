@@ -26,10 +26,21 @@ export const ConfirmOrder = () => {
     window.scrollTo({ top: 0 });
   }, []);
   const dispatch = useAppDispatch();
-  const { orderList, subTotal, totalItem, taxes, total, loading, error } =
-    useAppSelector((state) => ({
-      ...state.orderList,
-    }));
+  const {
+    orderList,
+    subTotal,
+    totalItem,
+    taxes,
+    total,
+    voucherValue,
+    loading,
+    error,
+  } = useAppSelector((state) => ({
+    ...state.orderList,
+  }));
+  const { voucher, voucherWantUse } = useAppSelector((state) => ({
+    ...state.voucher,
+  }));
   const [paymentModal, setPaymentModal] = useState<boolean>(false);
 
   useEffect(() => {
@@ -76,6 +87,16 @@ export const ConfirmOrder = () => {
                     </span>
                     <span className="summary-price">Rp. {subTotal}</span>
                   </div>
+                  {voucherWantUse.value && (
+                    <div className="subtotal-summary">
+                      <span>
+                        <p>Voucher ({voucherWantUse.value}%)</p>
+                      </span>
+                      <span className="summary-price text-green-400">
+                        - Rp. {voucherValue}
+                      </span>
+                    </div>
+                  )}
                   <div className="summary-taxes">
                     <p>Taxes</p>
                     <p>Rp. {taxes}</p>

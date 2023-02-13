@@ -60,6 +60,10 @@ function App() {
           path="/order-list/confirm-order/payment-receipt"
           element={<PaymentReceipt />}
         />
+        <Route
+          path="/order-list/confirm-order/payment-receipt-va"
+          element={<PaymentReceipt />}
+        />
         <Route path="/your-favourites" element={<Favourites />} />
         <Route path="/your-favourites/all-items" element={<Allitems />} />
         <Route path="/reservation" element={<Reservation />} />
@@ -69,6 +73,7 @@ function App() {
           path="/reservation/new-reservation"
           element={<AddReservationPage />}
         />
+        <Route path="/new-reservation" element={<AddReservationPage />} />
         <Route path="/account/:info" element={<AccountInfo />} />
         <Route
           path="/account/transaction-history"

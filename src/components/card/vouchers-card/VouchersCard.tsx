@@ -9,6 +9,7 @@ import {
   getVoucher,
 } from '../../../redux/OrderListSlice';
 import { fetchVoucherId } from '../../../redux/voucher-slice';
+import { voucherModalModalFalse } from '../../../redux/VoucherModal';
 import './VouchersCard.css';
 
 type voucherItem = {
@@ -23,12 +24,16 @@ export const VouchersCard = ({ voucher }: voucherItem) => {
       await dispatch(fetchVoucherId(voucher.id));
       await dispatch(fetchVoucherOrder(voucher.id));
       await dispatch(fetchOrderList());
+      await dispatch(voucherModalModalFalse());
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <div className="voucher-card-container" onClick={() => handleCLick()}>
+    <div
+      className="voucher-card-container active:bg-slate-100"
+      onClick={() => handleCLick()}
+    >
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <div className="voucher-icon">
           <IoTicket />

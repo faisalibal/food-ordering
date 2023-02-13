@@ -1,22 +1,22 @@
-import "./AddReservationPage.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { IoIosArrowBack } from "react-icons/io";
-import { useLocation, useNavigate } from "react-router-dom";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { ReservationDTO } from "../../DTO/ReservationDTO";
-import { apiJsonServer } from "../../config/axios";
-import { AnimatePresence } from "framer-motion";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { BookingConfirmation } from "../../components/modal/booking-confirmation/BookingConfirmation";
-import { bookingConfirmationModalTrue } from "../../redux/bookingConfirmation";
-import { HelperDate } from "../../helper/HelperDate";
-import { fetchReservation } from "../../redux/reservationSlice";
+import './AddReservationPage.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { IoIosArrowBack } from 'react-icons/io';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { ReservationDTO } from '../../DTO/ReservationDTO';
+import { apiJsonServer } from '../../config/axios';
+import { AnimatePresence } from 'framer-motion';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { BookingConfirmation } from '../../components/modal/booking-confirmation/BookingConfirmation';
+import { bookingConfirmationModalTrue } from '../../redux/bookingConfirmation';
+import { HelperDate } from '../../helper/HelperDate';
+import { fetchReservation } from '../../redux/reservationSlice';
 
 export const AddReservationPage = () => {
   const location = useLocation();
-  const path = location.pathname.split("/")[1];
+  const path = location.pathname.split('/')[1];
   const [startDate, setStartDate] = useState(new Date());
   const [time, setTime] = useState([]);
   const [date, setDate] = useState(new Date());
@@ -33,10 +33,10 @@ export const AddReservationPage = () => {
 
   const [reservation, setReservation] = useState<ReservationDTO>({
     id: reservationData.length + 2,
-    name: "",
-    phone: "",
+    name: '',
+    phone: '',
     date: date.toString(),
-    time: "00:00",
+    time: '00:00',
     pax: 1,
   });
 
@@ -61,7 +61,7 @@ export const AddReservationPage = () => {
           time: item,
         }));
       } else {
-        return "";
+        return '';
       }
     }
     setReservation((prev) => ({
@@ -92,13 +92,13 @@ export const AddReservationPage = () => {
       new Date().getMonth() + 1
     }-${new Date().getDate()}-${new Date().getFullYear()}`;
 
-    let className = "";
+    let className = '';
     if (reservation.time === time) {
-      className = "active-time";
+      className = 'active-time';
     }
     if (dateChoice === today) {
       if (`${time}` < `${new Date().getHours()}:${new Date().getMinutes()}`) {
-        className = "pass-time";
+        className = 'pass-time';
       }
     }
     return className;
@@ -107,10 +107,10 @@ export const AddReservationPage = () => {
   useLayoutEffect(() => {
     const getTime = async () => {
       try {
-        const response = await apiJsonServer.get("/time");
+        const response = await apiJsonServer.get('/time');
         setTime(response.data);
       } catch (error) {
-        console.log("error");
+        console.log('error');
       }
     };
     dispatch(fetchReservation());
@@ -135,8 +135,10 @@ export const AddReservationPage = () => {
       </AnimatePresence>
       <div className="res-container">
         <div className="res-header">
-          <span onClick={() => navigate(`/${path}`)}>
-            <IoIosArrowBack style={{ fontSize: "20px", marginLeft: "-1px" }} />
+          <span
+            onClick={() => navigate(`/${path === 'reservation' ? path : ''}`)}
+          >
+            <IoIosArrowBack style={{ fontSize: '20px', marginLeft: '-1px' }} />
           </span>
           <span>
             <p>New Reservation</p>
@@ -162,12 +164,12 @@ export const AddReservationPage = () => {
             />
           </div>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div className="res-date-picker">
             <h3>Date & Time</h3>
             <div
               className="date-tes"
-              style={{ display: "flex", width: "100%" }}
+              style={{ display: 'flex', width: '100%' }}
             >
               <DatePicker
                 minDate={new Date()}
@@ -191,10 +193,10 @@ export const AddReservationPage = () => {
         </div>
         <div
           style={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            gap: "6px",
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '6px',
           }}
         >
           <div className="res-pax">
@@ -206,20 +208,24 @@ export const AddReservationPage = () => {
           </div>
           <div className="res-count-pax">
             <button
-              className={reservation.pax <= 1 ? "res-min" : "res-minus"}
+              className={reservation.pax <= 1 ? 'res-min' : 'res-minus'}
               onClick={() => handlePaxMin()}
               disabled={reservation.pax === 1}
             >
-              <AiOutlineMinus style={{ color: "white", fontSize: "14px" }} />
+              <AiOutlineMinus style={{ color: 'white', fontSize: '14px' }} />
             </button>
             <p>{reservation.pax} Pax</p>
             <button onClick={() => handlePaxPlus()}>
-              <AiOutlinePlus style={{ color: "white", fontSize: "14px" }} />
+              <AiOutlinePlus style={{ color: 'white', fontSize: '14px' }} />
             </button>
           </div>
         </div>
         <div className="res-button">
-          <button onClick={() => navigate(`/${path}`)}>Cancel</button>
+          <button
+            onClick={() => navigate(`/${path === 'reservation' ? path : ''}`)}
+          >
+            Cancel
+          </button>
           <button
             className="res-submit"
             onClick={() => dispatch(bookingConfirmationModalTrue())}

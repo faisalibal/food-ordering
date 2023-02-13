@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PrimaryButton } from '../../components/button';
@@ -7,6 +8,19 @@ import './GuestLoginPage.css';
 
 export const GuestLoginPage = () => {
   const navigate = useNavigate();
+  const [guestLogin, setguestLogin] = useState({
+    phoneNumber: '',
+    name: '',
+    uniqueCode: '',
+  });
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setguestLogin((prev) => ({
+      ...prev,
+      [event.target.id]: event.target.value,
+    }));
+  };
+
+  console.log(guestLogin);
 
   return (
     <div className="w-screen h-screen bg-[#014a40] relative">
@@ -34,12 +48,23 @@ export const GuestLoginPage = () => {
         className="guest-login-container  pt-8 justify-between"
       >
         <div className="w-full">
-          <InputField label="Phone Number" placeholder="" onChange={() => {}} />
-          <InputField label="Name" placeholder="" onChange={() => {}} />
+          <InputField
+            label="Phone Number"
+            placeholder=""
+            onChange={handleChange}
+            id="phoneNumber"
+          />
+          <InputField
+            label="Name"
+            placeholder=""
+            onChange={handleChange}
+            id="name"
+          />
           <InputScanCode
             label="Unique code"
             placeholder=""
-            onChange={() => {}}
+            onChange={handleChange}
+            id="uniqueCode"
           />
         </div>
         <div className="w-full flex flex-col items-center gap-3">

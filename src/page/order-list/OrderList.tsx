@@ -100,7 +100,7 @@ export const OrderList = () => {
                   style={{ fontSize: '31px', color: '#B5ED89' }}
                 />
               </span>
-              <span>You've 2 voucher</span>
+              <span>You've {voucher.length} voucher</span>
             </div>
             <div className="payment-summary">
               <div>
@@ -115,12 +115,16 @@ export const OrderList = () => {
                     </span>
                     <span className="summary-price">Rp. {subTotal}</span>
                   </div>
-                  <div className="subtotal-summary">
-                    <span>
-                      <p>Voucher</p>
-                    </span>
-                    <span className="summary-price">Rp. {voucherValue}</span>
-                  </div>
+                  {voucherWantUse.value && (
+                    <div className="subtotal-summary">
+                      <span>
+                        <p>Voucher ({voucherWantUse.value}%)</p>
+                      </span>
+                      <span className="summary-price text-green-400">
+                        - Rp. {voucherValue}
+                      </span>
+                    </div>
+                  )}
                   <div className="summary-taxes">
                     <p>Taxes</p>
                     <p>Rp. {taxes}</p>

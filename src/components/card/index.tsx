@@ -1,12 +1,15 @@
 import { CgFileDocument } from 'react-icons/cg';
+import { useNavigate } from 'react-router-dom';
 
 type transactionHistory = {};
 
 export const TransactionHistoryCard = () => {
+  const navigate = useNavigate();
   return (
     <div
       className="grid grid-cols-20/80 shadow-3xl py-2 "
       style={{ borderRadius: '12px' }}
+      onClick={() => navigate('/order-list/confirm-order/payment-receipt')}
     >
       <div className="grid place-items-center">
         <CgFileDocument className="text-5xl text-gray-800" />

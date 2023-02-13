@@ -6,6 +6,7 @@ import { confirmationModalModalFalse } from '../../../redux/confirmationModal';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { ConfirmationCard } from '../../card/confirmation-card/ConfirmationCard';
 import { useNavigate } from 'react-router-dom';
+import success from '../../../assets/images/success.png';
 
 export const OrderConfirmation = () => {
   const orderConfirmationRef = useRef(null);
@@ -14,10 +15,21 @@ export const OrderConfirmation = () => {
     dispatch(confirmationModalModalFalse())
   );
 
-  const { orderList, subTotal, totalItem, taxes, total, loading, error } =
-    useAppSelector((state) => ({
-      ...state.orderList,
-    }));
+  const {
+    orderList,
+    subTotal,
+    totalItem,
+    taxes,
+    total,
+    voucherValue,
+    loading,
+    error,
+  } = useAppSelector((state) => ({
+    ...state.orderList,
+  }));
+  const { voucher, voucherWantUse } = useAppSelector((state) => ({
+    ...state.voucher,
+  }));
 
   const navigate = useNavigate();
 
@@ -90,6 +102,16 @@ export const OrderConfirmation = () => {
               </span>
               <span className="summary-price">Rp. {subTotal}</span>
             </div>
+            {voucherWantUse.value && (
+              <div className="subtotal-summary">
+                <span>
+                  <p>Voucher ({voucherWantUse.value}%)</p>
+                </span>
+                <span className="summary-price text-green-400">
+                  - Rp. {voucherValue}
+                </span>
+              </div>
+            )}
             <div className="summary-taxes">
               <p>Taxes</p>
               <p>Rp. {taxes}</p>
@@ -158,7 +180,12 @@ export const ChoosePaymentMethod = ({ setPaymentModal }: paymentModal) => {
           Choose Payment Method
         </p>
         <div className="flex flex-col gap-4 mb-4">
-          <button className="bg-secondary text-white font-semibold py-2 px-4 text-lg rounded-[20px] ">
+          <button
+            className="bg-secondary text-white font-semibold py-2 px-4 text-lg rounded-[20px] "
+            onClick={() =>
+              navigate('/order-list/confirm-order/payment-receipt-va')
+            }
+          >
             Virtual Account
           </button>
           <button
@@ -170,6 +197,80 @@ export const ChoosePaymentMethod = ({ setPaymentModal }: paymentModal) => {
             Pay to Cashier
           </button>
         </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+type modalPayment = {
+  paymentLoading: boolean;
+  modalSucces: boolean;
+  setPopUpPayment: () => void;
+};
+
+export const ModalSuccessPayment = ({
+  paymentLoading,
+  modalSucces,
+  setPopUpPayment,
+}: modalPayment) => {
+  const choosePaymentMethodRef = useRef(null);
+  const navigate = useNavigate();
+  console.log(paymentLoading);
+  useOnClickOutside(choosePaymentMethodRef, () => setPopUpPayment());
+  return (
+    <motion.div
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+        transition: {
+          duration: 0.1,
+        },
+      }}
+      exit={{
+        opacity: 0,
+        transition: {
+          delay: 0.3,
+          duration: 0.1,
+        },
+      }}
+      className="modal-confirmation grid place-content-center w-full"
+    >
+      <motion.div
+        initial={{
+          height: '0px',
+          width: '0px',
+        }}
+        animate={{
+          height: '200px',
+          width: '90%',
+        }}
+        exit={{
+          transform: 'translateY(100%)',
+        }}
+        className="w-full"
+        ref={choosePaymentMethodRef}
+      >
+        {paymentLoading && <div className="loader"></div>}
+        {modalSucces && (
+          <div className="w-[350px]  h-[280px] bg-white shadow-sm rounded-[12px] p-3 flex flex-col items-center">
+            <img
+              src={success}
+              alt="succes icon"
+              className="w-[150px] h-[150px]"
+            />
+            <p className="text-2xl font-semibold">Payment Success</p>
+            <p>Thank you and comeback later</p>
+
+            <button
+              className="w-full bg-primary text-white p-2 mt-2 rounded-md"
+              onClick={() => navigate('/account/transaction-history')}
+            >
+              Transaction history
+            </button>
+          </div>
+        )}
       </motion.div>
     </motion.div>
   );

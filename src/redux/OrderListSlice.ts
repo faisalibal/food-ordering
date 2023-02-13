@@ -72,15 +72,12 @@ export const getOrderTotalItem = (orderList: OrderListDTO[]): number => {
 };
 
 export const getVoucher = ({ orderList, voucherUse }: totalItem) => {
-  console.log(voucherUse.value);
   let totalItem = orderList?.reduce(
     (amount, item) => item.price * item.quantity + amount,
     0
   );
   if (voucherUse.value !== 0) {
-    console.log(totalItem);
     totalItem = (totalItem * voucherUse.value) / 100;
-    console.log(totalItem);
     return totalItem;
   }
   return 0;
@@ -100,8 +97,9 @@ export const getOrderTotal = ({ orderList, voucherUse }: totalItem): number => {
     (amount, item) => item.price * item.quantity + amount,
     0
   );
-  if (voucherUse.value !== 0) {
-    subTotal = (subTotal * voucherUse.value) / 100;
+  if (voucherUse.value) {
+    const totalVoucher = (subTotal * voucherUse.value) / 100;
+    subTotal = subTotal - totalVoucher;
   }
   const taxes = (subTotal * 10) / 100; //taxes 10%//
   const total = subTotal + taxes;
