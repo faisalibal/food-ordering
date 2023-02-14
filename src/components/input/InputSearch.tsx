@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useRef } from "react";
-import { BsSearch } from "react-icons/bs";
-import useOnClickOutside from "../../hook/useOnCLickOutside";
-import { useAppDispatch, useAppSelector } from "../../redux/hook";
-import { searchActiveFalse, searchActiveTrue } from "../../redux/SearchInput";
-import "./InputSearch.css";
+import { motion } from 'framer-motion';
+import { Dispatch, SetStateAction, useRef } from 'react';
+import { BsSearch } from 'react-icons/bs';
+import useOnClickOutside from '../../hook/useOnCLickOutside';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
+import { searchActiveFalse, searchActiveTrue } from '../../redux/SearchInput';
+import './InputSearch.css';
 
 type search = {
   setSearch: Dispatch<SetStateAction<string>>;
@@ -27,13 +27,13 @@ export const InputSearch = ({ setSearch }: search) => {
       {searchActive && (
         <motion.div
           initial={{
-            width: "0px",
+            width: '0px',
           }}
           animate={{
-            width: "70vw",
+            width: '70vw',
           }}
           exit={{
-            width: "0px",
+            width: '0px',
           }}
           className="search-food-container"
           ref={searchRef}
@@ -44,13 +44,13 @@ export const InputSearch = ({ setSearch }: search) => {
             onChange={handleChange}
           />
           <span onClick={() => dispatch(searchActiveFalse())}>
-            <BsSearch style={{ fontSize: "20px", color: "#0F1F0D" }} />
+            <BsSearch style={{ fontSize: '20px', color: '#0F1F0D' }} />
           </span>
         </motion.div>
       )}
       {!searchActive && (
         <span onClick={() => dispatch(searchActiveTrue())}>
-          <BsSearch style={{ fontSize: "20px" }} />
+          <BsSearch style={{ fontSize: '20px' }} />
         </span>
       )}
     </div>
