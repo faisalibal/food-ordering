@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { CategoriesDTO } from "../../../DTO/CategoriesDTO";
-import "./CategoriesCard.css";
+import { useState } from 'react';
+import { CategoriesDTO } from '../../../DTO/CategoriesDTO';
+import './CategoriesCard.css';
 
 type CategoryType = {
   CategoryItem: CategoriesDTO;

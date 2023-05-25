@@ -53,15 +53,9 @@ export const PopularPage = () => {
     }
   }, []);
 
-  function notify(): void {
-    throw new Error('Function not implemented.');
-  }
-
   return (
     <>
-      <AnimatePresence>
-        {addChartModal && <AddToChart notify={notify} />}
-      </AnimatePresence>
+      <AnimatePresence>{addChartModal && <AddToChart />}</AnimatePresence>
       <div className="allitems-container">
         <div className="header-nav-container">
           <span className="header-back" onClick={() => navigate(`/${path}`)}>

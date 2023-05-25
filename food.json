@@ -97,22 +97,22 @@
   ],
   "order-list": [
     {
-      "id": "5",
-      "kategory": "drinks",
-      "name": "Es Jeruk",
-      "price": 10000,
-      "quantity": 14,
-      "note": "",
-      "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg"
-    },
-    {
       "id": "1",
       "kategory": "main-course",
       "name": "Nasi goreng kecombrang",
       "price": 23000,
-      "quantity": 9,
-      "note": "",
+      "quantity": 2,
+      "note": "Pedes ",
       "image": "https://img.kurio.network/FgAKw0h9_V_LlG8xU3xojz5Vsf0=/1200x900/filters:quality(80)/https://kurio-img.kurioapps.com/20/10/10/a7e9eaa0-1c22-42b0-a11f-0a5ad1d30126.jpeg"
+    },
+    {
+      "id": "5",
+      "kategory": "drinks",
+      "name": "Es Jeruk",
+      "price": 10000,
+      "quantity": 2,
+      "note": "",
+      "image": "https://storage.googleapis.com/finansialku_media/wordpress_media/2019/07/Sudah-Saatnya-Lirik-Modal-dan-Keuntungan-dari-Bisnis-Es-Jeruk-01-Finansialku.jpg"
     }
   ],
   "favourite": [],
