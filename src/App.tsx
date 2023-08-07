@@ -8,6 +8,7 @@ import { ConfirmOrder } from './page/confirm-order/confirm-order';
 import { EditProfile } from './page/edit-profile/EditProfile';
 import { Favourites } from './page/favourites-page/Favourites';
 import {
+  ChoiceLoginType,
   GuestLoginPage,
   LoginPage,
   RegisterPage,
@@ -24,21 +25,74 @@ import { PaymentReceipt } from './page/payment-receipt/payment-receipt';
 import { PopularPage } from './page/popular-page/popular-page';
 import { Reservation } from './page/reservation/Reservation';
 import { fetchFavourite } from './redux/favouriteSlice';
-import { useAppDispatch } from './redux/hook';
-import { fetchOrderList } from './redux/OrderListSlice';
+import { useAppDispatch, useAppSelector } from './redux/hook';
+import WaitersPage from './page/waiters/WaitersPage';
+import WaiterAllOrder from './page/waiters/WaiterAllOrder';
+import WaitersAccount from './page/waiters/WaitersAccount';
+import Chef from './page/chef/Chef';
+// import { fetchOrderList } from './redux/OrderListSlice';
+import { io } from 'socket.io-client';
+import { baseURL } from './config/axios';
+import {
+  fetchWaitersOrder,
+  fetchWaitersOrderId,
+  fetchWaitersOrderItem,
+  getNotif,
+} from './redux/WaitersSlice';
+import { fetchChefOrder, fetchChefOrderWork } from './redux/ChefSlice';
+import { fetchOrderGuest } from './redux/OrderListSlice';
+import ChefAllOrders from './page/chef/ChefAllOrders';
+import WaitersCall from './page/waiters/WaitersCall';
 
 function App() {
   const dispatch = useAppDispatch();
-
   useEffect(() => {
-    dispatch(fetchOrderList());
-    dispatch(fetchFavourite());
+    const socket = io(import.meta.env.VITE_APP_BASEURL || ''); // Ganti URL dan port dengan server WebSocket Anda
+
+    socket.on('updated', (newItemOrder: any) => {
+      // Lakukan sesuatu saat ada item order baru
+      // console.log('Item order baru:', newItemOrder);
+      const update = async () => {
+        dispatch(fetchWaitersOrder());
+        await dispatch(fetchWaitersOrderItem());
+        await dispatch(fetchChefOrder());
+        await dispatch(fetchChefOrderWork());
+        // console.log(newItemOrder);
+        await dispatch(fetchOrderGuest(newItemOrder.order.guestId));
+        if (newItemOrder.orderId !== 0) {
+          await dispatch(fetchWaitersOrderId(newItemOrder.orderId));
+        }
+      };
+      update();
+    });
+
+    socket.on('created', (newItemOrder: any) => {
+      // Lakukan sesuatu saat ada item order baru
+      // console.log('Item order baru:', newItemOrder);
+      dispatch(fetchWaitersOrderItem());
+      dispatch(fetchWaitersOrder());
+      dispatch(fetchChefOrder());
+      dispatch(fetchChefOrderWork());
+    });
+
+    socket.on('createdWaiters', (newItemOrder: any) => {
+      dispatch(getNotif());
+    });
+
+    socket.on('created', (newItemOrder: any) => {
+      dispatch(getNotif());
+    });
+
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/choice-login-type" element={<ChoiceLoginType />} />
         <Route path="/guest-login" element={<GuestLoginPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -55,7 +109,12 @@ function App() {
         <Route path="/order-list/drinks" element={<Allitems />} />
         <Route path="/order-list/side-dish" element={<Allitems />} />
         <Route path="/order-list/snacks" element={<Allitems />} />
-        <Route path="/order-list/confirm-order" element={<ConfirmOrder />} />
+        <Route path="/waiters/on-going" element={<WaitersPage />} />
+        <Route path="/waiters/all-order" element={<WaiterAllOrder />} />
+        <Route path="/waiters/call" element={<WaitersCall />} />
+        <Route path="/waiters/account" element={<WaitersAccount />} />
+        <Route path="/chef/work" element={<Chef />} />
+        <Route path="/chef/all-order" element={<ChefAllOrders />} />
         <Route
           path="/order-list/confirm-order/payment-receipt"
           element={<PaymentReceipt />}

@@ -1,24 +1,25 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { apiJsonServer } from "../config/axios";
-import { CategoriesDTO } from "../DTO/CategoriesDTO";
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { baseURL } from '../config/axios';
+import { CategoriesDTO } from '../DTO/CategoriesDTO';
+import { FoodCategoryDTO } from '../DTO/FoodDTO';
 
 export type initialStates = {
   loading: boolean;
-  category: CategoriesDTO[];
+  category: FoodCategoryDTO[];
   error: string;
 };
 
 const initialState: initialStates = {
   loading: false,
   category: [],
-  error: "",
+  error: '',
 };
 
 export const fetchCategory = createAsyncThunk(
-  "category/fetchCategory",
+  'category/fetchCategory',
   async () => {
     try {
-      const res = await apiJsonServer.get("/category");
+      const res = await baseURL.get('/foods/data/categories');
       return res.data;
     } catch (error) {
       console.log(error);
@@ -27,7 +28,7 @@ export const fetchCategory = createAsyncThunk(
 );
 
 const FavouriteSlice = createSlice({
-  name: "category",
+  name: 'category',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -36,16 +37,16 @@ const FavouriteSlice = createSlice({
     });
     builder.addCase(
       fetchCategory.fulfilled,
-      (state, action: PayloadAction<CategoriesDTO[]>) => {
+      (state, action: PayloadAction<FoodCategoryDTO[]>) => {
         state.loading = false;
         state.category = action.payload;
-        state.error = "";
+        state.error = '';
       }
     );
     builder.addCase(fetchCategory.rejected, (state, action) => {
       state.loading = false;
       state.category = [];
-      state.error = action.error.message || "Something went wrong";
+      state.error = action.error.message || 'Something went wrong';
     });
   },
 });

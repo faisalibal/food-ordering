@@ -11,6 +11,8 @@ import modalTableReducer from './ModalTable';
 import categoryReducer from './CategorySlice';
 import searchReducer from './SearchInput';
 import voucherReducer from './voucher-slice';
+import waitersOrderReducer from './WaitersSlice';
+import chefReducer from './ChefSlice';
 
 const store = configureStore({
   reducer: {
@@ -26,6 +28,8 @@ const store = configureStore({
     category: categoryReducer,
     searchInput: searchReducer,
     voucher: voucherReducer,
+    waitersOrder: waitersOrderReducer,
+    chefReducer: chefReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

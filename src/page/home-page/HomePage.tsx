@@ -19,6 +19,8 @@ import noResult from '../../assets/images/no-result.png';
 import { BiPhoneCall } from 'react-icons/bi';
 import { ToastContainer, toast, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { TableDTO } from '../../DTO/OrderListDTO';
+import { baseURL } from '../../config/axios';
 
 export const HomePage = () => {
   const { food, loading, error } = useAppSelector((state) => ({
@@ -28,7 +30,7 @@ export const HomePage = () => {
     ...state.category,
   }));
   const [search, setSearch] = useState<string>('');
-
+  const table: TableDTO = JSON.parse(localStorage.getItem('table') ?? '{}');
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchFood());
@@ -50,15 +52,22 @@ export const HomePage = () => {
     setSearch(event.target.value);
   };
 
-  const waiters = () => {
-    toast.success('Okayy.. Waiters will come', {
-      position: 'top-center',
-      autoClose: 800,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: false,
-      closeButton: true,
-    });
+  const waiters = async () => {
+    try {
+      const res = await baseURL.post('waiters-calls', {
+        tableId: table.id,
+      });
+      toast.success('Okayy.. Waiters will come', {
+        position: 'top-center',
+        autoClose: 800,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        closeButton: true,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -82,7 +91,7 @@ export const HomePage = () => {
             <div className="home-logo">
               <img src={logo} alt="logo" />
             </div>
-            <p>Hi, John Doe</p>
+            <p className="">Hi, John Doe</p>
             <p>{Greeting()}</p>
             <button
               className="bg-primary text-white rounded-md text-sm py-1 px-2 shadow-md active:opacity-[0.8] flex items-center gap-2 w-fit"
@@ -94,7 +103,9 @@ export const HomePage = () => {
           </div>
           <div className="header-right">
             <p>Table No.</p>
-            <span onClick={() => dispatch(modalTableTrue())}>20</span>
+            <span onClick={() => dispatch(modalTableTrue())}>
+              {table?.table_no}
+            </span>
           </div>
         </div>
         <div className="search-container sticky top-1">
@@ -162,7 +173,7 @@ export const HomePage = () => {
               </div>
               <div className="categories-container">
                 {category?.map((item, index) => (
-                  <Link to={`/home/${item.category}`} key={index}>
+                  <Link to={`/home/${item.category.toString()}`} key={index}>
                     <CategoriesCard CategoryItem={item} />
                   </Link>
                 ))}

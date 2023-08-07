@@ -1,25 +1,25 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { apiJsonServer } from "../config/axios";
-import { FoodDTO } from "../DTO/FoodDTO";
-import { ReservationDTO } from "../DTO/ReservationDTO";
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { baseURL } from '../config/axios';
+import { FoodDTO } from '../DTO/FoodDTO';
+import { ReservationDto } from '../DTO/ReservationDTO';
 
 export type initialStates = {
   loading: boolean;
-  reservationData: ReservationDTO[];
+  reservationData: ReservationDto[];
   error: string;
 };
 
 const initialState: initialStates = {
   loading: false,
   reservationData: [],
-  error: "",
+  error: '',
 };
 
 export const fetchReservation = createAsyncThunk(
-  "reservation/fetchReservation",
+  'reservation/fetchReservation',
   async () => {
     try {
-      const res = await apiJsonServer.get("/reservation");
+      const res = await baseURL.get('/reservations');
       return res.data;
     } catch (error) {
       console.log(error);
@@ -28,17 +28,17 @@ export const fetchReservation = createAsyncThunk(
 );
 
 export const postReservation = createAsyncThunk(
-  "reservation/postReservation",
-  async (value: ReservationDTO) => {
-    return await apiJsonServer.post(`/reservation`, value);
+  'reservation/postReservation',
+  async (value: ReservationDto) => {
+    return await baseURL.post(`/reservations`, value);
   }
 );
 
 export const deleteReservation = createAsyncThunk(
-  "reservation/deleteReservation",
+  'reservation/deleteReservation',
   async (id: number) => {
     try {
-      const res = await apiJsonServer.delete(`/reservation/${id}`);
+      const res = await baseURL.delete(`/reservations/${id}`);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -47,7 +47,7 @@ export const deleteReservation = createAsyncThunk(
 );
 
 const FavouriteSlice = createSlice({
-  name: "reservation",
+  name: 'reservation',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -56,38 +56,38 @@ const FavouriteSlice = createSlice({
     });
     builder.addCase(
       fetchReservation.fulfilled,
-      (state, action: PayloadAction<ReservationDTO[]>) => {
+      (state, action: PayloadAction<ReservationDto[]>) => {
         state.loading = false;
         state.reservationData = action.payload;
-        state.error = "";
+        state.error = '';
       }
     );
     builder.addCase(fetchReservation.rejected, (state, action) => {
       state.loading = false;
       state.reservationData = [];
-      state.error = action.error.message || "Something went wrong";
+      state.error = action.error.message || 'Something went wrong';
     });
     builder.addCase(postReservation.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(postReservation.fulfilled, (state, action) => {
       state.loading = false;
-      state.error = "";
+      state.error = '';
     });
     builder.addCase(postReservation.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message || "Something went wrong";
+      state.error = action.error.message || 'Something went wrong';
     });
     builder.addCase(deleteReservation.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(deleteReservation.fulfilled, (state, action) => {
       state.loading = false;
-      state.error = "";
+      state.error = '';
     });
     builder.addCase(deleteReservation.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message || "Something went wrong";
+      state.error = action.error.message || 'Something went wrong';
     });
   },
 });

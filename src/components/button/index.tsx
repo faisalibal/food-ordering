@@ -11,7 +11,7 @@ export const PrimaryButton = ({ label, onClick, onSubmit, style }: button) => {
     <button
       style={style}
       onClick={onClick}
-      className="w-full bg-primary rounded-[16px] shadow-md py-3 text-lg text-[#ffffff] font-semibold"
+      className="w-full bg-primary-500 rounded-[16px] shadow-md py-3 text-lg text-[#ffffff] font-semibold"
     >
       {label}
     </button>

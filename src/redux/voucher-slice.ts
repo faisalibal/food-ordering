@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { apiJsonServer } from '../config/axios';
+import { baseURL } from '../config/axios';
 import { VoucherDTO } from '../DTO/VoucherDTO';
 
 export type initialStates = {
@@ -20,7 +20,7 @@ export const fetchVoucher = createAsyncThunk(
   'voucher/fetchVoucher',
   async () => {
     try {
-      const res = await apiJsonServer.get('/vouchers');
+      const res = await baseURL.get('/vouchers');
       return res.data;
     } catch (error) {
       console.log(error);
@@ -32,7 +32,7 @@ export const fetchVoucherId = createAsyncThunk(
   'vouchers/fetchVoucherId',
   async (id: string) => {
     try {
-      const res = await apiJsonServer.get(`/vouchers/${id}`);
+      const res = await baseURL.get(`/vouchers/${id}`);
       return res.data;
     } catch (error) {
       console.log(error);

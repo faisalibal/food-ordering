@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { apiJsonServer } from '../config/axios';
+import { baseURL } from '../config/axios';
 import { CustomerOrderDTO } from '../DTO/CustomerOrders';
 import { OrderListDTO } from '../DTO/OrderListDTO';
 
@@ -31,7 +31,7 @@ export const fetchOrderList = createAsyncThunk(
   'orderList/fetchOrderList',
   async () => {
     try {
-      const res = await apiJsonServer.get('/order-list');
+      const res = await baseURL.get('/order-list');
       return res.data;
     } catch (error) {
       console.log(error);
@@ -77,17 +77,14 @@ export const getOrderTotal = (orderList: OrderListDTO[]): number => {
 export const postOrderList = createAsyncThunk(
   'orderList/postOrderList',
   async (value: OrderListDTO) => {
-    return await apiJsonServer.post(`/order-list`, value);
+    return await baseURL.post(`/order-list`, value);
   }
 );
 
 export const updateOrderList = createAsyncThunk(
   'orderList/updateOrderList',
   async (updatedValue: OrderListDTO) => {
-    return await apiJsonServer.put(
-      `/order-list/${updatedValue.id}`,
-      updatedValue
-    );
+    return await baseURL.put(`/order-list/${updatedValue.id}`, updatedValue);
   }
 );
 
@@ -95,7 +92,7 @@ export const deleteOrderList = createAsyncThunk(
   'orderList/deleteOrderList',
   async (id: string) => {
     try {
-      const res = await apiJsonServer.delete(`/order-list/${id}`);
+      const res = await baseURL.delete(`/order-list/${id}`);
       return res.data;
     } catch (error) {
       console.log(error);

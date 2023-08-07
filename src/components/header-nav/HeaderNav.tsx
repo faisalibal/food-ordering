@@ -27,7 +27,8 @@ export const HeaderNav = ({ setSearch }: search) => {
         style={
           path === 'reservation' ||
           path === 'your-favourites' ||
-          path === 'order-list'
+          path === 'order-list' ||
+          path === 'waiters'
             ? { display: 'none' }
             : {}
         }

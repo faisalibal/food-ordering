@@ -34,7 +34,7 @@ export const InputField = ({
   onChange,
 }: inputField) => {
   return (
-    <div className="flex flex-col items-start w-full gap-1">
+    <div className="flex flex-col items-start w-full">
       <label className="text-[16px] text-[#014A40] font-medium">{label}</label>
       <input
         type="text"

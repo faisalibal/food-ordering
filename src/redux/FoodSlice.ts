@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
-import { apiJsonServer } from "../config/axios";
-import { FoodDTO } from "../DTO/FoodDTO";
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { baseURL } from '../config/axios';
+import { FoodDTO } from '../DTO/FoodDTO';
 
 export type initialStates = {
   loading: boolean;
@@ -14,12 +14,12 @@ const initialState: initialStates = {
   loading: false,
   food: [],
   foodId: <FoodDTO>{},
-  error: "",
+  error: '',
 };
 
-export const fetchFood = createAsyncThunk("food/fetchFood", async () => {
+export const fetchFood = createAsyncThunk('food/fetchFood', async () => {
   try {
-    const res = await apiJsonServer.get("/food");
+    const res = await baseURL.get('/foods');
     return res.data;
   } catch (error) {
     console.log(error);
@@ -27,10 +27,10 @@ export const fetchFood = createAsyncThunk("food/fetchFood", async () => {
 });
 
 export const fetchFoodId = createAsyncThunk(
-  "food/fetchFoodId",
-  async (id: string) => {
+  'food/fetchFoodId',
+  async (id: number) => {
     try {
-      const res = await apiJsonServer.get(`/food/${id}`);
+      const res = await baseURL.get(`/foods/${id}`);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -39,7 +39,7 @@ export const fetchFoodId = createAsyncThunk(
 );
 
 const FoodSlice = createSlice({
-  name: "food",
+  name: 'food',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -51,13 +51,13 @@ const FoodSlice = createSlice({
       (state, action: PayloadAction<FoodDTO[]>) => {
         state.loading = false;
         state.food = action.payload;
-        state.error = "";
+        state.error = '';
       }
     );
     builder.addCase(fetchFood.rejected, (state, action) => {
       state.loading = false;
       state.food = [];
-      state.error = action.error.message || "Something went wrong";
+      state.error = action.error.message || 'Something went wrong';
     });
     builder.addCase(fetchFoodId.pending, (state) => {
       state.loading = true;
@@ -67,13 +67,13 @@ const FoodSlice = createSlice({
       (state, action: PayloadAction<FoodDTO>) => {
         state.loading = false;
         state.foodId = action.payload;
-        state.error = "";
+        state.error = '';
       }
     );
     builder.addCase(fetchFoodId.rejected, (state, action) => {
       state.loading = false;
       state.foodId = <FoodDTO>{};
-      state.error = action.error.message || "Something went wrong";
+      state.error = action.error.message || 'Something went wrong';
     });
   },
 });

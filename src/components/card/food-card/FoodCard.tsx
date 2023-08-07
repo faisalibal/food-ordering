@@ -23,13 +23,13 @@ export const FoodCard = ({ foodItem }: foodType) => {
   return (
     <div
       className="food-card-container"
-      onClick={foodItem.available ? () => handleModal() : () => {}}
+      onClick={foodItem.availability ? () => handleModal() : () => {}}
     >
       <div className="foodcard-image">
         <img
           src={foodItem.image}
           alt="food-image"
-          style={foodItem.available ? {} : { filter: 'grayscale(100%' }}
+          style={foodItem.availability ? {} : { filter: 'grayscale(100%' }}
         />
       </div>
       <div style={{ padding: '0px 8px' }}>

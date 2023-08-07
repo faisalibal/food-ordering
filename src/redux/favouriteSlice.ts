@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { apiJsonServer } from "../config/axios";
-import { FoodDTO } from "../DTO/FoodDTO";
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { baseURL } from '../config/axios';
+import { FoodDTO } from '../DTO/FoodDTO';
 
 export type initialStates = {
   loading: boolean;
@@ -11,14 +11,14 @@ export type initialStates = {
 const initialState: initialStates = {
   loading: false,
   favourite: [],
-  error: "",
+  error: '',
 };
 
 export const fetchFavourite = createAsyncThunk(
-  "favourite/fetchFavourite",
+  'favourite/fetchFavourite',
   async () => {
     try {
-      const res = await apiJsonServer.get("/favourite");
+      const res = await baseURL.get('/favourite');
       return res.data;
     } catch (error) {
       console.log(error);
@@ -27,17 +27,17 @@ export const fetchFavourite = createAsyncThunk(
 );
 
 export const postFavourite = createAsyncThunk(
-  "favourite/postFavourite",
+  'favourite/postFavourite',
   async (value: FoodDTO) => {
-    return await apiJsonServer.post(`/favourite`, value);
+    return await baseURL.post(`/favourite`, value);
   }
 );
 
 export const deleteFavourite = createAsyncThunk(
-  "favourite/deleteFavourite",
-  async (id: string) => {
+  'favourite/deleteFavourite',
+  async (id: number) => {
     try {
-      const res = await apiJsonServer.delete(`/favourite/${id}`);
+      const res = await baseURL.delete(`/favourite/${id}`);
       return res.data;
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ export const deleteFavourite = createAsyncThunk(
 );
 
 const FavouriteSlice = createSlice({
-  name: "favourite",
+  name: 'favourite',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -58,35 +58,35 @@ const FavouriteSlice = createSlice({
       (state, action: PayloadAction<FoodDTO[]>) => {
         state.loading = false;
         state.favourite = action.payload;
-        state.error = "";
+        state.error = '';
       }
     );
     builder.addCase(fetchFavourite.rejected, (state, action) => {
       state.loading = false;
       state.favourite = [];
-      state.error = action.error.message || "Something went wrong";
+      state.error = action.error.message || 'Something went wrong';
     });
     builder.addCase(postFavourite.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(postFavourite.fulfilled, (state, action) => {
       state.loading = false;
-      state.error = "";
+      state.error = '';
     });
     builder.addCase(postFavourite.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message || "Something went wrong";
+      state.error = action.error.message || 'Something went wrong';
     });
     builder.addCase(deleteFavourite.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(deleteFavourite.fulfilled, (state, action) => {
       state.loading = false;
-      state.error = "";
+      state.error = '';
     });
     builder.addCase(deleteFavourite.rejected, (state, action) => {
       state.loading = false;
-      state.error = action.error.message || "Something went wrong";
+      state.error = action.error.message || 'Something went wrong';
     });
   },
 });

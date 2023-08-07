@@ -5,20 +5,24 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { ReservationDTO } from '../../DTO/ReservationDTO';
-import { apiJsonServer } from '../../config/axios';
+import { baseURL } from '../../config/axios';
 import { AnimatePresence } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { BookingConfirmation } from '../../components/modal/booking-confirmation/BookingConfirmation';
 import { bookingConfirmationModalTrue } from '../../redux/bookingConfirmation';
 import { HelperDate } from '../../helper/HelperDate';
 import { fetchReservation } from '../../redux/reservationSlice';
+import { PhoneCodeDTO } from '../../DTO/Users';
+import Select from 'react-select';
+import { PhoneInput } from '../../components/input/PhoneInput';
+import { TimeDto } from '../../DTO/ReservationDTO';
 
 export const AddReservationPage = () => {
   const location = useLocation();
   const path = location.pathname.split('/')[1];
   const [startDate, setStartDate] = useState(new Date());
-  const [time, setTime] = useState([]);
+  const [phoneCodeData, setPhoneCodeData] = useState<PhoneCodeDTO[]>();
+  const [time, setTime] = useState<TimeDto[]>([]);
   const [date, setDate] = useState(new Date());
   const navigate = useNavigate();
 
@@ -26,26 +30,29 @@ export const AddReservationPage = () => {
     ...state.bookingConfirmation,
   }));
 
-  const { reservationData, loading, error } = useAppSelector((state) => ({
-    ...state.reservation,
-  }));
   const dispatch = useAppDispatch();
 
-  const [reservation, setReservation] = useState<ReservationDTO>({
-    id: reservationData.length + 2,
-    name: '',
-    phone: '',
-    date: date.toString(),
-    time: '00:00',
-    pax: 1,
-  });
+  // const [reservation, setReservation] = useState<ReservationDTO>({
+  //   id: reservationData?.length + 2,
+  //   name: '',
+  //   phone: '',
+  //   date: date.toString(),
+  //   time: '00:00',
+  //   pax: 1,
+  // });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setReservation((prev) => ({
-      ...prev,
-      [event.target.id]: event.target.value,
-    }));
-  };
+  const [name, setName] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [timeReservation, setTimeReservation] = useState<string>('');
+  const [pax, setPax] = useState<number>(1);
+  const [countryCode, setCountryCode] = useState<string | undefined>('+62');
+
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setReservation((prev) => ({
+  //     ...prev,
+  //     [event.target.id]: event.target.value,
+  //   }));
+  // };
 
   const handleTime = (item: string) => {
     const dateChoice = `${
@@ -56,32 +63,20 @@ export const AddReservationPage = () => {
     }-${new Date().getDate()}-${new Date().getFullYear()}`;
     if (today === dateChoice) {
       if (`${item}` > `${new Date().getHours()}:${new Date().getMinutes()}`) {
-        setReservation((prev) => ({
-          ...prev,
-          time: item,
-        }));
+        setTimeReservation(item);
       } else {
         return '';
       }
     }
-    setReservation((prev) => ({
-      ...prev,
-      time: item,
-    }));
+    setTimeReservation(item);
   };
 
   const handlePaxPlus = () => {
-    setReservation((prev) => ({
-      ...prev,
-      pax: prev.pax++,
-    }));
+    setPax(pax + 1);
   };
 
   const handlePaxMin = () => {
-    setReservation((prev) => ({
-      ...prev,
-      pax: prev.pax--,
-    }));
+    setPax(pax - 1);
   };
 
   const buttonBooking = (time: string) => {
@@ -93,7 +88,7 @@ export const AddReservationPage = () => {
     }-${new Date().getDate()}-${new Date().getFullYear()}`;
 
     let className = '';
-    if (reservation.time === time) {
+    if (timeReservation === time) {
       className = 'active-time';
     }
     if (dateChoice === today) {
@@ -104,10 +99,22 @@ export const AddReservationPage = () => {
     return className;
   };
 
+  useEffect(() => {
+    const getPhoneCode = async () => {
+      try {
+        const response = await baseURL.get('/phone-code');
+        setPhoneCodeData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPhoneCode();
+  }, []);
+
   useLayoutEffect(() => {
     const getTime = async () => {
       try {
-        const response = await apiJsonServer.get('/time');
+        const response = await baseURL.get('/times');
         setTime(response.data);
       } catch (error) {
         console.log('error');
@@ -117,20 +124,20 @@ export const AddReservationPage = () => {
     getTime();
   }, []);
 
-  useEffect(() => {
-    setReservation((prev) => ({
-      ...prev,
-      date: HelperDate(date.toString()),
-    }));
-  }, [date]);
-
-  console.log(reservation);
+  const DropdownIndicator = () => null;
 
   return (
     <>
       <AnimatePresence>
         {bookingConfirmationModal && (
-          <BookingConfirmation reservation={reservation} />
+          <BookingConfirmation
+            date={date}
+            name={name}
+            pax={pax}
+            phoneNumber={phoneNumber}
+            timeReservation={timeReservation}
+            countryCode={countryCode}
+          />
         )}
       </AnimatePresence>
       <div className="res-container">
@@ -144,22 +151,60 @@ export const AddReservationPage = () => {
             <p>New Reservation</p>
           </span>
         </div>
-        <div className="res-input-container">
+        <div className="w-full flex flex-col gap-2">
           <div>
             <label>Phone Number</label>
-            <input
-              type="text"
-              placeholder="+62***"
-              onChange={handleChange}
-              id="phone"
-            />
+            <div className="flex gap-1">
+              <Select
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    width: '60px',
+                  }),
+                  menu: (baseStyles, state) => ({
+                    ...baseStyles,
+                    width: '270px', // Ubah lebar dropdown sesuai kebutuhan Anda
+                  }),
+                }}
+                options={phoneCodeData}
+                getOptionLabel={(option) =>
+                  `${option.dial_code} ${option.name}`
+                }
+                getOptionValue={(option) => option.dial_code}
+                onChange={(selectedOption) => {
+                  setCountryCode(selectedOption?.dial_code);
+                  // console.log(selectedOption);
+                }}
+                placeholder="+62"
+                components={{ DropdownIndicator }}
+                formatOptionLabel={(option, { context }) =>
+                  context === 'menu'
+                    ? `${option.dial_code} ${option.name}`
+                    : option.dial_code
+                }
+              />
+
+              {/* <input
+                type="text"
+                placeholder="+62***"
+                onChange={handleChange}
+                id="phone"
+              /> */}
+              <PhoneInput
+                phoneNumber={phoneNumber}
+                setPhoneNumber={setPhoneNumber}
+              />
+            </div>
           </div>
-          <div>
+          <div className="flex flex-col">
             <label>Name</label>
             <input
               type="text"
               placeholder="Your name"
-              onChange={handleChange}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setName(event?.target.value)
+              }
+              className={`w-full px-2 py-2 border rounded-md transition-all duration-300 outline-none hover:border-blue-500  focus:border-blue-500 focus:ring-2 focus:ring-blue-100`}
               id="name"
             />
           </div>
@@ -180,13 +225,15 @@ export const AddReservationPage = () => {
             </div>
           </div>
           <div className="res-time-button">
-            {time.map((item, index) => (
+            {time?.map((item, index) => (
               <button
                 key={index}
-                onClick={() => handleTime(item)}
-                className={buttonBooking(item)}
+                onClick={() => {
+                  handleTime(item.time);
+                }}
+                className={buttonBooking(item.time)}
               >
-                {item}
+                {item.time}
               </button>
             ))}
           </div>
@@ -208,13 +255,13 @@ export const AddReservationPage = () => {
           </div>
           <div className="res-count-pax">
             <button
-              className={reservation.pax <= 1 ? 'res-min' : 'res-minus'}
+              className={pax <= 1 ? 'res-min' : 'res-minus'}
               onClick={() => handlePaxMin()}
-              disabled={reservation.pax === 1}
+              disabled={pax === 1}
             >
               <AiOutlineMinus style={{ color: 'white', fontSize: '14px' }} />
             </button>
-            <p>{reservation.pax} Pax</p>
+            <p>{pax} Pax</p>
             <button onClick={() => handlePaxPlus()}>
               <AiOutlinePlus style={{ color: 'white', fontSize: '14px' }} />
             </button>

@@ -3,11 +3,11 @@ import { VoucherDTO } from '../../../DTO/VoucherDTO';
 import { HelperDate } from '../../../helper/HelperDate';
 import { fetchFood } from '../../../redux/FoodSlice';
 import { useAppDispatch } from '../../../redux/hook';
-import {
-  fetchOrderList,
-  fetchVoucherOrder,
-  getVoucher,
-} from '../../../redux/OrderListSlice';
+// import {
+//   fetchOrderList,
+//   fetchVoucherOrder,
+//   getVoucher,
+// } from '../../../redux/OrderListSlice';
 import { fetchVoucherId } from '../../../redux/voucher-slice';
 import { voucherModalModalFalse } from '../../../redux/VoucherModal';
 import './VouchersCard.css';
@@ -20,10 +20,9 @@ export const VouchersCard = ({ voucher }: voucherItem) => {
 
   const handleCLick = async () => {
     try {
-      console.log('ini error');
-      await dispatch(fetchVoucherId(voucher.id));
-      await dispatch(fetchVoucherOrder(voucher.id));
-      await dispatch(fetchOrderList());
+      // await dispatch(fetchVoucherId(voucher.id));
+      // await dispatch(fetchVoucherOrder(voucher.id));
+      // await dispatch(fetchOrderList());
       await dispatch(voucherModalModalFalse());
     } catch (error) {
       console.log(error);

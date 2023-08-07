@@ -12,7 +12,6 @@ import { AnimatePresence } from 'framer-motion';
 export const PaymentReceipt = () => {
   const location = useLocation();
   const path = location.pathname.split('/')[3];
-  console.log(path);
   const navigate = useNavigate();
   const [tabActive, setTabActive] = useState<string>('total');
   const dispatch = useAppDispatch();

@@ -9,12 +9,12 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { addChartModalFalse } from '../../../redux/AddChartModal';
 import { motion } from 'framer-motion';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { OrderListDTO } from '../../../DTO/OrderListDTO';
-import {
-  fetchOrderList,
-  postOrderList,
-  updateOrderList,
-} from '../../../redux/OrderListSlice';
+// import { OrderListDTO } from '../../../DTO/OrderListDTO';
+// import {
+//   fetchOrderList,
+//   postOrderList,
+//   updateOrderList,
+// } from '../../../redux/OrderListSlice';
 import useOnClickOutside from '../../../hook/useOnCLickOutside';
 import chef from '../../../assets/icons/chef.png';
 import cabai from '../../../assets/icons/cabai.png';
@@ -26,6 +26,12 @@ import {
 import { useLocation } from 'react-router-dom';
 import { ToastContainer, toast, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {
+  CreateItemOrderDTO,
+  ItemOrderDTO,
+  ItemStatus,
+} from '../../../DTO/OrderListDTO';
+import { setOrderItem, updateOrderItem } from '../../../redux/OrderListSlice';
 
 type addToChart = {
   notify: (pesan: string) => void;
@@ -54,14 +60,13 @@ export const AddToChart = () => {
   const [counter, setCounter] = useState<number>(1);
   const [availableOrder, setAvailableOrder] = useState<boolean>(false);
   const [availableFavourite, setAvailableFavourite] = useState<boolean>(false);
-  const [itemChart, setItemChart] = useState<OrderListDTO>({
-    id: foodId?.id,
-    kategory: foodId?.kategory,
-    name: foodId?.name,
-    price: foodId?.price,
-    quantity: counter,
+  const [itemChart, setItemChart] = useState<ItemOrderDTO>({
+    foodId: foodId?.id,
+    food: foodId,
+    statusId: 1,
     note: '',
-    image: foodId?.image,
+    quantity: counter,
+    orderId: 0,
   });
   //=====================End State hook=============================//
 
@@ -102,13 +107,12 @@ export const AddToChart = () => {
   const handleDispatchAddOrder = () => {
     const addOrder = async () => {
       if (availableOrder) {
-        await dispatch(updateOrderList(itemChart));
-        await dispatch(fetchOrderList());
+        dispatch(updateOrderItem(itemChart));
       }
       if (availableOrder === false) {
-        await dispatch(postOrderList(itemChart));
-        await dispatch(fetchOrderList());
+        dispatch(setOrderItem(itemChart));
       }
+      // dispatch(setOrderItem(itemChart));
       dispatch(addChartModalFalse());
     };
     addOrder();
@@ -176,19 +180,19 @@ export const AddToChart = () => {
 
   useLayoutEffect(() => {
     setItemChart({
-      id: foodId?.id,
-      kategory: foodId?.kategory,
-      name: foodId?.name,
-      price: foodId?.price,
-      quantity: counter,
+      food: foodId,
+      statusId: 1,
+      foodId: foodId?.id,
       note: '',
-      image: foodId?.image,
+      orderId: 0,
+      quantity: counter,
     });
     const viewOptions = () => {
-      const view = orderList.filter((item) => item.id === foodId.id);
+      const view = orderList.filter((item) => item.food.id === foodId?.id);
       if (view.length >= 1) {
         setAvailableOrder(true);
         const [data] = view;
+
         setCounter(data.quantity);
         setItemChart((prev) => ({
           ...prev,
@@ -198,8 +202,8 @@ export const AddToChart = () => {
     };
 
     const heartFavourite = () => {
-      const heart = favourite.filter((item) => item.id === foodId.id);
-      if (heart.length >= 1) {
+      const heart = favourite?.filter((item) => item.id === foodId?.id);
+      if (heart?.length >= 1) {
         setAvailableFavourite(true);
       }
     };
@@ -289,7 +293,7 @@ export const AddToChart = () => {
                 />
               </div>
               <div className="modal-chart-image">
-                <img src={foodId.image} alt="chart-image" />
+                <img src={foodId?.image} alt="chart-image" />
               </div>
             </div>
             <div
@@ -303,7 +307,7 @@ export const AddToChart = () => {
                     gap: '4px',
                   }}
                 >
-                  <p className="modal-chart-name">{foodId.name}</p>
+                  <p className="modal-chart-name">{foodId?.name}</p>
                   <div
                     style={{
                       display: 'flex',
@@ -348,11 +352,11 @@ export const AddToChart = () => {
                 </div>
                 <div>
                   <p className="modal-chart-price">
-                    Rp. {foodId.price.toLocaleString()}
+                    Rp. {foodId?.price.toLocaleString()}
                   </p>
                 </div>
               </div>
-              <p className="modal-chart-description">{foodId.description}</p>
+              <p className="modal-chart-description">{foodId?.description}</p>
               <textarea
                 className="modal-chart-note"
                 placeholder="Add Notes.."

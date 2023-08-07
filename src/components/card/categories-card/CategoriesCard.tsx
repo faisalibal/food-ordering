@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { CategoriesDTO } from '../../../DTO/CategoriesDTO';
 import './CategoriesCard.css';
+import { FoodCategoryDTO } from '../../../DTO/FoodDTO';
+import { HelperStringUppercase } from '../../../helper/HelperStringUppercase';
 
 type CategoryType = {
-  CategoryItem: CategoriesDTO;
+  CategoryItem: FoodCategoryDTO;
 };
 
 export const CategoriesCard = ({ CategoryItem }: CategoryType) => {
@@ -14,7 +16,9 @@ export const CategoriesCard = ({ CategoryItem }: CategoryType) => {
       <div className="category-image">
         <img src={CategoryItem.image} alt="category-image" />
       </div>
-      <p className="category-name">{CategoryItem.categoryName}</p>
+      <p className="category-name">
+        {HelperStringUppercase(CategoryItem.category)}
+      </p>
     </div>
   );
 };

@@ -7,10 +7,23 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { ConfirmationCard } from '../../card/confirmation-card/ConfirmationCard';
 import { useNavigate } from 'react-router-dom';
 import success from '../../../assets/images/success.png';
+import { baseURL } from '../../../config/axios';
+import {
+  GuestDTO,
+  PaymentStatusDTO,
+  TableDTO,
+} from '../../../DTO/OrderListDTO';
+import {
+  fetchOrder,
+  fetchOrderItem,
+  setOrderListEmpty,
+} from '../../../redux/OrderListSlice';
 
 export const OrderConfirmation = () => {
   const orderConfirmationRef = useRef(null);
   const dispatch = useAppDispatch();
+  const user: GuestDTO = JSON.parse(localStorage.getItem('guest') ?? '{}');
+  const table: TableDTO = JSON.parse(localStorage.getItem('table') ?? '{}');
   useOnClickOutside(orderConfirmationRef, () =>
     dispatch(confirmationModalModalFalse())
   );
@@ -33,9 +46,40 @@ export const OrderConfirmation = () => {
 
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  console.log(orderList);
+
+  const handleClick = async () => {
+    const postOrder = {
+      guestId: user.guest_id,
+      totalPrice: total,
+      tableId: table.id,
+      paymentMethod: '',
+      paymentStatus: PaymentStatusDTO.WAITING_PAYMENT,
+      orderStatusId: 1,
+    };
     try {
-      navigate('/order-list/confirm-order');
+      const response = await baseURL.post(`/orders`, postOrder, {
+        headers: {
+          'Content-Type': 'application/json',
+          // Authorization: `Bearer ${token}`,
+        },
+      });
+      const orderItem = orderList.map((item) => {
+        const { food, orderId, ...rest } = item;
+        return { ...rest, orderId: response.data.id, statusId: 1 };
+      });
+
+      const orderPost = await baseURL.post(`/item-order/many`, orderItem, {
+        headers: {
+          'Content-Type': 'application/json',
+          // Authorization: `Bearer ${token}`,
+        },
+      });
+      await dispatch(fetchOrder());
+      await dispatch(fetchOrderItem());
+      await dispatch(setOrderListEmpty());
+      localStorage.removeItem('orderList');
+      navigate('/order-list');
       dispatch(confirmationModalModalFalse());
     } catch (error) {
       console.log(error);
@@ -89,7 +133,7 @@ export const OrderConfirmation = () => {
           Order Confirmation
         </h3>
         <div className="confirmation-card-box">
-          {orderList.map((item, index) => (
+          {orderList?.map((item, index) => (
             <ConfirmationCard orderList={item} key={index} />
           ))}
         </div>
@@ -139,8 +183,35 @@ type paymentModal = {
 
 export const ChoosePaymentMethod = ({ setPaymentModal }: paymentModal) => {
   const choosePaymentMethodRef = useRef(null);
+  const { yourOrder } = useAppSelector((state) => ({ ...state.orderList }));
   const navigate = useNavigate();
   useOnClickOutside(choosePaymentMethodRef, () => setPaymentModal(false));
+
+  const handleUpdateItem = async () => {
+    const updateData = yourOrder.items.map((item) => {
+      return {
+        id: item.id,
+        data: {
+          statusId: 2,
+        },
+      };
+    });
+    try {
+      const response = await baseURL.patch(
+        `/item-order/update-many`,
+        updateData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log(response);
+      navigate('/order-list/confirm-order/payment-receipt-va');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <motion.div
@@ -182,9 +253,7 @@ export const ChoosePaymentMethod = ({ setPaymentModal }: paymentModal) => {
         <div className="flex flex-col gap-4 mb-4">
           <button
             className="bg-secondary text-white font-semibold py-2 px-4 text-lg rounded-[20px] "
-            onClick={() =>
-              navigate('/order-list/confirm-order/payment-receipt-va')
-            }
+            onClick={handleUpdateItem}
           >
             Virtual Account
           </button>
@@ -215,7 +284,6 @@ export const ModalSuccessPayment = ({
 }: modalPayment) => {
   const choosePaymentMethodRef = useRef(null);
   const navigate = useNavigate();
-  console.log(paymentLoading);
   useOnClickOutside(choosePaymentMethodRef, () => setPopUpPayment());
   return (
     <motion.div

@@ -73,7 +73,7 @@ export const Favourites = () => {
         <HeaderNav setSearch={setSearch} />
         <Navbar />
 
-        {favourite.length < 1 ? (
+        {favourite?.length < 1 ? (
           <div className="order-empty">
             <div className="order-empty-illustration">
               <img src={favorite} alt="favorite" />
@@ -86,7 +86,7 @@ export const Favourites = () => {
         ) : (
           <div className="favourite-container">
             {favourite
-              .filter((item) => item.name.toLocaleLowerCase().includes(search))
+              ?.filter((item) => item.name.toLocaleLowerCase().includes(search))
               .map((item, index) => (
                 <FoodCard foodItem={item} key={index} />
               ))}

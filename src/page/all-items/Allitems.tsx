@@ -10,6 +10,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { IoIosArrowBack } from 'react-icons/io';
 import { fetchCategory } from '../../redux/CategorySlice';
 import { InputSearch } from '../../components/input/InputSearch';
+import { HelperStringUppercase } from '../../helper/HelperStringUppercase';
 
 export const Allitems = () => {
   const navigate = useNavigate();
@@ -101,8 +102,8 @@ export const Allitems = () => {
                         : {}
                     }
                   >
-                    {item.categoryName.split(' ')[0]}
-                    <p>{item.categoryName.split(' ')[1]}</p>
+                    <p>{HelperStringUppercase(item?.category).split(' ')[0]}</p>
+                    <p>{HelperStringUppercase(item?.category).split(' ')[1]}</p>
                   </span>
                 </Link>
               ))}
@@ -121,7 +122,7 @@ export const Allitems = () => {
         ) : (
           <div className="all-items-card-container ">
             {food
-              .filter((item) => item.kategory === pathName)
+              .filter((item) => item?.category?.category === pathName)
               .filter((item) => item.name.toLocaleLowerCase().includes(search))
               .map((item, index) => (
                 <FoodCard foodItem={item} key={index} />
